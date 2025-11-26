@@ -1,7 +1,13 @@
-import { defineConfig } from 'vite';
+import {defineConfig} from 'vite';
 import react from '@vitejs/plugin-react';
+import {TanStackRouterVite} from '@tanstack/router-plugin/vite'
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
-});
+    plugins: [
+        TanStackRouterVite({
+            routesDirectory: './src/routes', // ТОЛЬКО одна строка
+            generatedRouteTree: './src/routeTree.gen.ts',
+        }),
+        react(),
+    ],
+})
