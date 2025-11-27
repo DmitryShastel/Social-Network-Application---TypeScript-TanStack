@@ -1,6 +1,6 @@
 import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
-import {signInStyles} from "../Styles/signInStyles";
+import {signInStyles} from "../styles/signInStyles";
 import {SignInFormData, signInSchema} from "../services/signInSchema";
 
 const formConfig = {
@@ -84,7 +84,7 @@ export const SignIn = () => {
                     </button>
 
                     <div css={signInStyles.linksContainer}>
-                        <a href="/signup" css={signInStyles.link}>
+                        <a href="/auth/register" css={signInStyles.link}>
                             Don't have an account? Sign up
                         </a>
                     </div>
