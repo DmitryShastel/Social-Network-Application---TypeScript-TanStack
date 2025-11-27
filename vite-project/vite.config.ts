@@ -8,6 +8,11 @@ export default defineConfig({
             routesDirectory: './src/routes', // ТОЛЬКО одна строка
             generatedRouteTree: './src/routeTree.gen.ts',
         }),
-        react(),
+        react({
+            jsxImportSource: '@emotion/react',
+            babel: {
+                plugins: ['@emotion/babel-plugin'],
+            },
+        }),
     ],
 })
