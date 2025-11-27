@@ -15,7 +15,7 @@ import { Route as MessagesIndexRouteImport } from './routes/messages/index'
 import { Route as ProfileUserIdRouteImport } from './routes/profile/$userId'
 import { Route as ProfileEditIndexRouteImport } from './routes/profile/edit/index'
 import { Route as AuthSignupIndexRouteImport } from './routes/auth/signup/index'
-import { Route as AuthSigninIndexRouteImport } from './routes/auth/signin/index'
+import { Route as AuthLoginIndexRouteImport } from './routes/auth/login/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -47,9 +47,9 @@ const AuthSignupIndexRoute = AuthSignupIndexRouteImport.update({
   path: '/auth/signup/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthSigninIndexRoute = AuthSigninIndexRouteImport.update({
-  id: '/auth/signin/',
-  path: '/auth/signin/',
+const AuthLoginIndexRoute = AuthLoginIndexRouteImport.update({
+  id: '/auth/login/',
+  path: '/auth/login/',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -58,7 +58,7 @@ export interface FileRoutesByFullPath {
   '/profile/$userId': typeof ProfileUserIdRoute
   '/messages': typeof MessagesIndexRoute
   '/posts': typeof PostsIndexRoute
-  '/auth/signin': typeof AuthSigninIndexRoute
+  '/auth/login': typeof AuthLoginIndexRoute
   '/auth/signup': typeof AuthSignupIndexRoute
   '/profile/edit': typeof ProfileEditIndexRoute
 }
@@ -67,7 +67,7 @@ export interface FileRoutesByTo {
   '/profile/$userId': typeof ProfileUserIdRoute
   '/messages': typeof MessagesIndexRoute
   '/posts': typeof PostsIndexRoute
-  '/auth/signin': typeof AuthSigninIndexRoute
+  '/auth/login': typeof AuthLoginIndexRoute
   '/auth/signup': typeof AuthSignupIndexRoute
   '/profile/edit': typeof ProfileEditIndexRoute
 }
@@ -77,7 +77,7 @@ export interface FileRoutesById {
   '/profile/$userId': typeof ProfileUserIdRoute
   '/messages/': typeof MessagesIndexRoute
   '/posts/': typeof PostsIndexRoute
-  '/auth/signin/': typeof AuthSigninIndexRoute
+  '/auth/login/': typeof AuthLoginIndexRoute
   '/auth/signup/': typeof AuthSignupIndexRoute
   '/profile/edit/': typeof ProfileEditIndexRoute
 }
@@ -88,7 +88,7 @@ export interface FileRouteTypes {
     | '/profile/$userId'
     | '/messages'
     | '/posts'
-    | '/auth/signin'
+    | '/auth/login'
     | '/auth/signup'
     | '/profile/edit'
   fileRoutesByTo: FileRoutesByTo
@@ -97,7 +97,7 @@ export interface FileRouteTypes {
     | '/profile/$userId'
     | '/messages'
     | '/posts'
-    | '/auth/signin'
+    | '/auth/login'
     | '/auth/signup'
     | '/profile/edit'
   id:
@@ -106,7 +106,7 @@ export interface FileRouteTypes {
     | '/profile/$userId'
     | '/messages/'
     | '/posts/'
-    | '/auth/signin/'
+    | '/auth/login/'
     | '/auth/signup/'
     | '/profile/edit/'
   fileRoutesById: FileRoutesById
@@ -116,7 +116,7 @@ export interface RootRouteChildren {
   ProfileUserIdRoute: typeof ProfileUserIdRoute
   MessagesIndexRoute: typeof MessagesIndexRoute
   PostsIndexRoute: typeof PostsIndexRoute
-  AuthSigninIndexRoute: typeof AuthSigninIndexRoute
+  AuthLoginIndexRoute: typeof AuthLoginIndexRoute
   AuthSignupIndexRoute: typeof AuthSignupIndexRoute
   ProfileEditIndexRoute: typeof ProfileEditIndexRoute
 }
@@ -165,11 +165,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignupIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/auth/signin/': {
-      id: '/auth/signin/'
-      path: '/auth/signin'
-      fullPath: '/auth/signin'
-      preLoaderRoute: typeof AuthSigninIndexRouteImport
+    '/auth/login/': {
+      id: '/auth/login/'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -180,7 +180,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProfileUserIdRoute: ProfileUserIdRoute,
   MessagesIndexRoute: MessagesIndexRoute,
   PostsIndexRoute: PostsIndexRoute,
-  AuthSigninIndexRoute: AuthSigninIndexRoute,
+  AuthLoginIndexRoute: AuthLoginIndexRoute,
   AuthSignupIndexRoute: AuthSignupIndexRoute,
   ProfileEditIndexRoute: ProfileEditIndexRoute,
 }

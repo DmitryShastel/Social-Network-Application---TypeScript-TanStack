@@ -1,6 +1,5 @@
 import {createRootRoute, Outlet} from '@tanstack/react-router'
 import {GlobalStyles} from "../modules/GlobalStyles";
-import {HomePage} from "../modules/home/components/HomePage";
 
 export const Route = createRootRoute({
     component: () => (
@@ -9,7 +8,6 @@ export const Route = createRootRoute({
             {/*    <Link to='/'>Home Page</Link>*/}
             {/*</div>*/}
             <GlobalStyles/>
-            <HomePage/>
             <Outlet/>
         </>
     ),

@@ -1,12 +1,8 @@
-import {createFileRoute} from "@tanstack/react-router";
 import {homeStyles} from "../styles/homeStyles";
 import {useInfinitePosts} from "../hooks/useInfinitePosts";
 import {useInfiniteScroll} from "../hooks/useInfiniteScroll";
 import {Header} from "./Header";
 
-export const Route = createFileRoute("/")({
-    component: HomePage,
-});
 
 export function HomePage() {
 
@@ -33,7 +29,7 @@ export function HomePage() {
         <div css={homeStyles.container}>
 
             <Header/>
-            
+
             <main css={homeStyles.main}>
                 <h2 css={homeStyles.title}>Latest Posts</h2>
 
