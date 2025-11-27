@@ -10,7 +10,7 @@ export const Header = () => {
                     <h1 css={homeStyles.logo}>MyBlog</h1>
                     <nav css={homeStyles.nav}>
                         <Link css={homeStyles.button} to="/auth/login"> SigIn </Link>
-                        <button css={[homeStyles.button, homeStyles.signUpButton]}>Sign Up</button>
+                        <Link css={[homeStyles.button, homeStyles.signUpButton]} to="/auth/register">Sign Up</Link>
                     </nav>
                 </div>
             </header>

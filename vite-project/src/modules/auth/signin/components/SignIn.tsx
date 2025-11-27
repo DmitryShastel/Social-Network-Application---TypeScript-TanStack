@@ -1,7 +1,7 @@
 import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {signInStyles} from "../Styles/signInStyles";
-import {SignInFormData, signInSchema} from "../services/authSchema";
+import {SignInFormData, signInSchema} from "../services/signInSchema";
 
 const formConfig = {
     resolver: zodResolver(signInSchema),
