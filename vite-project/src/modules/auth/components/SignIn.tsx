@@ -2,7 +2,7 @@ import {useForm} from 'react-hook-form';
 import {signInStyles} from "../styles/signInStyles";
 import {SignInFormData, signInSchema} from "../services/signInSchema";
 import {observer} from "mobx-react-lite";
-import SignInStore from "../../../../stores/signIn.store";
+import SignInStore from "../../../stores/signIn.store";
 import {useRouter} from "@tanstack/react-router";
 import {zodResolver} from "@hookform/resolvers/zod";
 

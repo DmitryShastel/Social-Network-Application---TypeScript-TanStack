@@ -1,6 +1,6 @@
 import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
-import {signUpStyles} from "../Styles/signUpStyles";
+import {signUpStyles} from "../styles/signUpStyles";
 import {Link} from "@tanstack/react-router";
 import {SignUpFormData, signUpSchema} from "../services/signUpSchema";
 
