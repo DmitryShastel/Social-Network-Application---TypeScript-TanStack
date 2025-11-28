@@ -1,5 +1,5 @@
 import {useInfiniteQuery} from "@tanstack/react-query";
-import {PostsResponse} from "../../posts/types/postType";
+import {PostsResponse} from "../../posts/types/post";
 
 
 export function useInfinitePosts(limit: number = 10) {

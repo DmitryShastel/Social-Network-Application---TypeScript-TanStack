@@ -19,10 +19,7 @@ export const SignUp = () => {
         handleSubmit,
         formState: {errors, isSubmitting},
         setError,
-        watch
     } = useForm<signUpSchema>(formConfig as any);
-
-    // const passwordValue = watch('password');
 
     const onSubmit = async (data: SignUpFormData) => {
         try {
@@ -71,18 +68,6 @@ export const SignUp = () => {
                             <span css={signUpStyles.errorText}>{errors.password.message}</span>
                         )}
 
-                        {/* Требования к паролю */}
-                        {/*{passwordValue && (*/}
-                        {/*    <div css={signUpStyles.passwordRequirements}>*/}
-                        {/*        <strong>Password must contain:</strong>*/}
-                        {/*        <ul>*/}
-                        {/*            <li>At least 6 characters</li>*/}
-                        {/*            <li>One lowercase letter</li>*/}
-                        {/*            <li>One uppercase letter</li>*/}
-                        {/*            <li>One number</li>*/}
-                        {/*        </ul>*/}
-                        {/*    </div>*/}
-                        {/*)}*/}
                     </div>
 
                     <div css={signUpStyles.fieldGroup}>

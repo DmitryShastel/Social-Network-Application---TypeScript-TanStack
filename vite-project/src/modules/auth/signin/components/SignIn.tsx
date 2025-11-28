@@ -1,28 +1,39 @@
 import {useForm} from 'react-hook-form';
-import {zodResolver} from '@hookform/resolvers/zod';
 import {signInStyles} from "../styles/signInStyles";
 import {SignInFormData, signInSchema} from "../services/signInSchema";
+import {observer} from "mobx-react-lite";
+import SignInStore from "../../../../stores/signIn.store";
+import {useRouter} from "@tanstack/react-router";
+import {zodResolver} from "@hookform/resolvers/zod";
 
-const formConfig = {
-    resolver: zodResolver(signInSchema),
-    defaultValues: {
-        email: '',
-        password: '',
-    },
-};
 
-export const SignIn = () => {
+export const SignIn = observer(() => {
+    //@ts-ignore
     const {
         register,
         handleSubmit,
         formState: {errors, isSubmitting},
         setError,
-    } = useForm<SignInFormData>(formConfig as any);
+    } = useForm<SignInFormData>({
+        resolver: zodResolver(signInSchema),
+        defaultValues: {
+            username: 'emilys',
+            password: 'emilyspass',
+        },
+    });
+
+    const router = useRouter()
 
     const onSubmit = async (data: SignInFormData) => {
         try {
-            await new Promise(resolve => setTimeout(resolve, 1000));
-
+            const success = await SignInStore.signIn(data.username, data.password)
+            if (success) {
+                await router.navigate({to: '/test'});
+            } else {
+                setError('root', {
+                    message: 'Invalid username or password'
+                });
+            }
         } catch (error) {
             setError('root', {
                 message: 'An error occurred during sign in'
@@ -37,18 +48,18 @@ export const SignIn = () => {
 
                 <form onSubmit={handleSubmit(onSubmit)} css={signInStyles.form}>
                     <div css={signInStyles.fieldGroup}>
-                        <label css={signInStyles.label} htmlFor="email">
+                        <label css={signInStyles.label} htmlFor="username">
                             Email / Username
                         </label>
                         <input
-                            css={[signInStyles.input, errors.email && signInStyles.inputError]}
-                            id="email"
+                            css={[signInStyles.input, errors.username && signInStyles.inputError]}
+                            id="username"
                             type="text"
                             placeholder="Enter your email or username"
-                            {...register('email')}
+                            {...register('username')}
                         />
-                        {errors.email && (
-                            <span css={signInStyles.errorText}>{errors.email.message}</span>
+                        {errors.username && (
+                            <span css={signInStyles.errorText}>{errors.username.message}</span>
                         )}
                     </div>
 
@@ -68,13 +79,6 @@ export const SignIn = () => {
                         )}
                     </div>
 
-                    {/* Server Error */}
-                    {/*{errors.root && (*/}
-                    {/*    <div css={signInStyles.serverError}>*/}
-                    {/*        {errors.root.message}*/}
-                    {/*    </div>*/}
-                    {/*)}*/}
-
                     <button
                         type="submit"
                         disabled={isSubmitting}
@@ -92,4 +96,4 @@ export const SignIn = () => {
             </div>
         </div>
     );
-};
+});
