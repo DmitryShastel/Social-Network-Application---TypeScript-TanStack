@@ -28,7 +28,7 @@ export const SignIn = observer(() => {
         try {
             const success = await SignInStore.signIn(data.username, data.password)
             if (success) {
-                await router.navigate({to: '/test'});
+                await router.navigate({to: '/'});
             } else {
                 setError('root', {
                     message: 'Invalid username or password'
