@@ -1,21 +1,5 @@
 import {action, makeObservable, observable, runInAction} from "mobx";
 
-interface SignIn {
-    username: string
-    password: string
-}
-
-interface SignInResponse {
-    id: number
-    username: string
-    email: string
-    firstName: string
-    lastName: string
-    gender: string
-    image: string
-    accessToken: string
-    refreshToken: string
-}
 
 class SignInStore {
 

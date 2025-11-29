@@ -94,18 +94,18 @@ const ButtonsContainer = styled.div`
 `;
 
 // дефолтная заглушка
-const DEFAULT_AVATAR = 'https://via.placeholder.com/120x120/667eea/ffffff?text=User';
+const DEFAULT_AVATAR = '';
 
 export const User = () => {
     //test temp data
-    const userData = {
-        image: '',
-        firstName: 'John',
-        lastName: 'Doe',
-        address: '123 Main Street, New York, NY 10001',
-        email: 'john.doe@example.com',
-        phone: '+1 (555) 123-4567'
-    };
+    // const userData = {
+    //     image: '',
+    //     firstName: 'John',
+    //     lastName: 'Doe',
+    //     address: '123 Main Street, New York, NY 10001',
+    //     email: 'john.doe@example.com',
+    //     phone: '+1 (555) 123-4567'
+    // };
 
     const handleEdit = () => {
         console.log('Edit page is opened');
