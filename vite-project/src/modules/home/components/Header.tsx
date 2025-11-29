@@ -95,7 +95,7 @@ export const Header = observer(() => {
                 <Nav>
                     {isLoggedIn ? (
                         <>
-                            <NavButton to="/user/$userId" params={{userId: currentUser?.id || 1}}>
+                            <NavButton to="/users/$userId" params={{userId: currentUser?.id || 1}}>
                                 Profile
                             </NavButton>
                             <StyledButton title={'Log out'} onClick={() => SignInStore.signOut()}/>

@@ -12,8 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PostsIndexRouteImport } from './routes/posts/index'
 import { Route as MessagesIndexRouteImport } from './routes/messages/index'
-import { Route as UserUserIdRouteImport } from './routes/user/$userId'
-import { Route as UserEditIndexRouteImport } from './routes/user/edit/index'
+import { Route as UsersUserIdRouteImport } from './routes/users/$userId'
+import { Route as UsersEditIndexRouteImport } from './routes/users/edit/index'
 import { Route as AuthRegisterIndexRouteImport } from './routes/auth/register/index'
 import { Route as AuthLoginIndexRouteImport } from './routes/auth/login/index'
 
@@ -32,14 +32,14 @@ const MessagesIndexRoute = MessagesIndexRouteImport.update({
   path: '/messages/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const UserUserIdRoute = UserUserIdRouteImport.update({
-  id: '/user/$userId',
-  path: '/user/$userId',
+const UsersUserIdRoute = UsersUserIdRouteImport.update({
+  id: '/users/$userId',
+  path: '/users/$userId',
   getParentRoute: () => rootRouteImport,
 } as any)
-const UserEditIndexRoute = UserEditIndexRouteImport.update({
-  id: '/user/edit/',
-  path: '/user/edit/',
+const UsersEditIndexRoute = UsersEditIndexRouteImport.update({
+  id: '/users/edit/',
+  path: '/users/edit/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRegisterIndexRoute = AuthRegisterIndexRouteImport.update({
@@ -55,70 +55,70 @@ const AuthLoginIndexRoute = AuthLoginIndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/user/$userId': typeof UserUserIdRoute
+  '/users/$userId': typeof UsersUserIdRoute
   '/messages': typeof MessagesIndexRoute
   '/posts': typeof PostsIndexRoute
   '/auth/login': typeof AuthLoginIndexRoute
   '/auth/register': typeof AuthRegisterIndexRoute
-  '/user/edit': typeof UserEditIndexRoute
+  '/users/edit': typeof UsersEditIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/user/$userId': typeof UserUserIdRoute
+  '/users/$userId': typeof UsersUserIdRoute
   '/messages': typeof MessagesIndexRoute
   '/posts': typeof PostsIndexRoute
   '/auth/login': typeof AuthLoginIndexRoute
   '/auth/register': typeof AuthRegisterIndexRoute
-  '/user/edit': typeof UserEditIndexRoute
+  '/users/edit': typeof UsersEditIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/user/$userId': typeof UserUserIdRoute
+  '/users/$userId': typeof UsersUserIdRoute
   '/messages/': typeof MessagesIndexRoute
   '/posts/': typeof PostsIndexRoute
   '/auth/login/': typeof AuthLoginIndexRoute
   '/auth/register/': typeof AuthRegisterIndexRoute
-  '/user/edit/': typeof UserEditIndexRoute
+  '/users/edit/': typeof UsersEditIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/user/$userId'
+    | '/users/$userId'
     | '/messages'
     | '/posts'
     | '/auth/login'
     | '/auth/register'
-    | '/user/edit'
+    | '/users/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/user/$userId'
+    | '/users/$userId'
     | '/messages'
     | '/posts'
     | '/auth/login'
     | '/auth/register'
-    | '/user/edit'
+    | '/users/edit'
   id:
     | '__root__'
     | '/'
-    | '/user/$userId'
+    | '/users/$userId'
     | '/messages/'
     | '/posts/'
     | '/auth/login/'
     | '/auth/register/'
-    | '/user/edit/'
+    | '/users/edit/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  UserUserIdRoute: typeof UserUserIdRoute
+  UsersUserIdRoute: typeof UsersUserIdRoute
   MessagesIndexRoute: typeof MessagesIndexRoute
   PostsIndexRoute: typeof PostsIndexRoute
   AuthLoginIndexRoute: typeof AuthLoginIndexRoute
   AuthRegisterIndexRoute: typeof AuthRegisterIndexRoute
-  UserEditIndexRoute: typeof UserEditIndexRoute
+  UsersEditIndexRoute: typeof UsersEditIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -144,18 +144,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MessagesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/user/$userId': {
-      id: '/user/$userId'
-      path: '/user/$userId'
-      fullPath: '/user/$userId'
-      preLoaderRoute: typeof UserUserIdRouteImport
+    '/users/$userId': {
+      id: '/users/$userId'
+      path: '/users/$userId'
+      fullPath: '/users/$userId'
+      preLoaderRoute: typeof UsersUserIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/user/edit/': {
-      id: '/user/edit/'
-      path: '/user/edit'
-      fullPath: '/user/edit'
-      preLoaderRoute: typeof UserEditIndexRouteImport
+    '/users/edit/': {
+      id: '/users/edit/'
+      path: '/users/edit'
+      fullPath: '/users/edit'
+      preLoaderRoute: typeof UsersEditIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/register/': {
@@ -177,12 +177,12 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  UserUserIdRoute: UserUserIdRoute,
+  UsersUserIdRoute: UsersUserIdRoute,
   MessagesIndexRoute: MessagesIndexRoute,
   PostsIndexRoute: PostsIndexRoute,
   AuthLoginIndexRoute: AuthLoginIndexRoute,
   AuthRegisterIndexRoute: AuthRegisterIndexRoute,
-  UserEditIndexRoute: UserEditIndexRoute,
+  UsersEditIndexRoute: UsersEditIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
