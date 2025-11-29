@@ -4,6 +4,7 @@ import UserStore from "../../../stores/user.store";
 import {observer} from "mobx-react-lite";
 import {useEffect} from "react";
 import {useParams} from "@tanstack/react-router";
+import SignInStore from "../../../stores/signIn.store";
 
 const UserContainer = styled.div`
   min-height: 100vh;
@@ -101,7 +102,8 @@ const DEFAULT_AVATAR = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEA
 
 export const User = observer(() => {
     const {user} = UserStore
-    const {userId} = useParams({from: '/users/$userId'})
+    const {currentUser} = SignInStore;
+    const {userId} = useParams({from: '/users/$userId/'})
 
     useEffect(() => {
         if (userId) {
@@ -118,6 +120,8 @@ export const User = observer(() => {
     const handleShowUsers = () => {
         console.log('users list is opened');
     };
+
+    const isOwnProfile = currentUser?.id && user?.id && currentUser.id === user.id
 
     return (
         <UserContainer>
@@ -160,16 +164,22 @@ export const User = observer(() => {
                     </DetailItem>
                 </UserDetails>
 
-                <ButtonsContainer>
-                    <Button
-                        title="Edit Profile"
-                        onClick={handleEdit}
-                    />
-                    <Button
-                        title="Show Users List"
-                        onClick={handleShowUsers}
-                    />
-                </ButtonsContainer>
+                {isOwnProfile ? (
+                    <ButtonsContainer>
+                        <Button
+                            title="Edit Profile"
+                            onClick={handleEdit}
+                        />
+                        <Button
+                            title="Show Users List"
+                            onClick={handleShowUsers}
+                        />
+                    </ButtonsContainer>
+                ) : (
+                    <></>
+                )}
+
+
             </UserCard>
         </UserContainer>
     );

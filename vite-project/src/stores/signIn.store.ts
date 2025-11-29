@@ -69,17 +69,23 @@ class SignInStore {
                 },
 
             })
-            runInAction(() => {
-                if (response.ok) {
+            if (response.ok) {
+                const userData = await response.json()
+                runInAction(() => {
                     this.isLoggedIn = true
-                } else {
+                    this.currentUser = {id: userData.id}
+                })
+            } else {
+                runInAction(() => {
                     this.isLoggedIn = false;
+                    this.currentUser = null;
                     localStorage.removeItem("authToken")
-                }
-            })
+                })
+            }
         } catch (error) {
             runInAction(() => {
                 this.isLoggedIn = false
+                this.currentUser = null
             })
         }
     }
