@@ -6,56 +6,56 @@ export const homeStyles = {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     `,
 
-    header: css`
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    `,
+    // header: css`
+    //   background: rgba(255, 255, 255, 0.95);
+    //   backdrop-filter: blur(10px);
+    //   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    //   position: sticky;
+    //   top: 0;
+    //   z-index: 100;
+    // `,
+    //
+    // headerContent: css`
+    //   max-width: 1200px;
+    //   margin: 0 auto;
+    //   padding: 1rem 2rem;
+    //   display: flex;
+    //   justify-content: space-between;
+    //   align-items: center;
+    // `,
 
-    headerContent: css`
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    `,
+    // logo: css`
+    //   font-size: 1.8rem;
+    //   font-weight: bold;
+    //   background: linear-gradient(45deg, #667eea, #764ba2);
+    //   background-clip: inherit;
+    //   -webkit-background-clip: text;
+    //   -webkit-text-fill-color: transparent;
+    //   margin: 0;
+    // `,
 
-    logo: css`
-      font-size: 1.8rem;
-      font-weight: bold;
-      background: linear-gradient(45deg, #667eea, #764ba2);
-      background-clip: inherit;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin: 0;
-    `,
+    // nav: css`
+    //   display: flex;
+    //   gap: 1rem;
+    // `,
 
-    nav: css`
-      display: flex;
-      gap: 1rem;
-    `,
-
-    button: css`
-      padding: 0.75rem 1.5rem;
-      border: 2px solid #667eea;
-      background: transparent;
-      color: #667eea;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-
-      &:hover {
-        background: #667eea;
-        color: white;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-      }
-    `,
+    // button: css`
+    //   padding: 0.75rem 1.5rem;
+    //   border: 2px solid #667eea;
+    //   background: transparent;
+    //   color: #667eea;
+    //   border-radius: 8px;
+    //   font-weight: 600;
+    //   cursor: pointer;
+    //   transition: all 0.3s ease;
+    //
+    //   &:hover {
+    //     background: #667eea;
+    //     color: white;
+    //     transform: translateY(-2px);
+    //     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    //   }
+    // `,
 
     signUpButton: css`
       background: #667eea;
