@@ -1,26 +1,29 @@
 import {User} from "../modules/users/types/user";
-import {makeObservable, runInAction} from "mobx";
+import {makeObservable, observable, runInAction} from "mobx";
 
 class UserStore {
-    user: User | null
+    user: User | null = null
     allUsers: boolean = false
 
     constructor() {
-        makeObservable(this, {})
+        makeObservable(this, {
+            user: observable,
+        })
     }
 
     currentUser = async (id: number) => {
         try {
             const token = localStorage.getItem("authToken")
-            const responce = await fetch(`https://dummyjson.com/users/${id}`, {
+            const response = await fetch(`https://dummyjson.com/users/${id}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 },
             })
-            if (responce.ok) {
-                const userData: User = await responce.json()
+            if (response.ok) {
+                const userData: User = await response.json()
+                console.log(userData)
                 runInAction(() => {
                     this.user = userData
                 })
