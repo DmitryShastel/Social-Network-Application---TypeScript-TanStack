@@ -86,7 +86,7 @@ const StyledButton = styled(Button)`
 `;
 
 export const Header = observer(() => {
-    const {isLoggedIn} = SignInStore;
+    const {isLoggedIn, currentUser} = SignInStore;
 
     return (
         <StyledHeader>
@@ -95,7 +95,7 @@ export const Header = observer(() => {
                 <Nav>
                     {isLoggedIn ? (
                         <>
-                            <NavButton to="/profile/$userId" params={{userId: '1'}}>
+                            <NavButton to="/user/$userId" params={{userId: currentUser?.id || 1}}>
                                 Profile
                             </NavButton>
                             <StyledButton title={'Log out'} onClick={() => SignInStore.signOut()}/>

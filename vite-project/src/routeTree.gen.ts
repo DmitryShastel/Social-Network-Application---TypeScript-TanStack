@@ -12,8 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PostsIndexRouteImport } from './routes/posts/index'
 import { Route as MessagesIndexRouteImport } from './routes/messages/index'
-import { Route as ProfileUserIdRouteImport } from './routes/profile/$userId'
-import { Route as ProfileEditIndexRouteImport } from './routes/profile/edit/index'
+import { Route as UserUserIdRouteImport } from './routes/user/$userId'
+import { Route as UserEditIndexRouteImport } from './routes/user/edit/index'
 import { Route as AuthRegisterIndexRouteImport } from './routes/auth/register/index'
 import { Route as AuthLoginIndexRouteImport } from './routes/auth/login/index'
 
@@ -32,14 +32,14 @@ const MessagesIndexRoute = MessagesIndexRouteImport.update({
   path: '/messages/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProfileUserIdRoute = ProfileUserIdRouteImport.update({
-  id: '/profile/$userId',
-  path: '/profile/$userId',
+const UserUserIdRoute = UserUserIdRouteImport.update({
+  id: '/user/$userId',
+  path: '/user/$userId',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProfileEditIndexRoute = ProfileEditIndexRouteImport.update({
-  id: '/profile/edit/',
-  path: '/profile/edit/',
+const UserEditIndexRoute = UserEditIndexRouteImport.update({
+  id: '/user/edit/',
+  path: '/user/edit/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRegisterIndexRoute = AuthRegisterIndexRouteImport.update({
@@ -55,70 +55,70 @@ const AuthLoginIndexRoute = AuthLoginIndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/profile/$userId': typeof ProfileUserIdRoute
+  '/user/$userId': typeof UserUserIdRoute
   '/messages': typeof MessagesIndexRoute
   '/posts': typeof PostsIndexRoute
   '/auth/login': typeof AuthLoginIndexRoute
   '/auth/register': typeof AuthRegisterIndexRoute
-  '/profile/edit': typeof ProfileEditIndexRoute
+  '/user/edit': typeof UserEditIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/profile/$userId': typeof ProfileUserIdRoute
+  '/user/$userId': typeof UserUserIdRoute
   '/messages': typeof MessagesIndexRoute
   '/posts': typeof PostsIndexRoute
   '/auth/login': typeof AuthLoginIndexRoute
   '/auth/register': typeof AuthRegisterIndexRoute
-  '/profile/edit': typeof ProfileEditIndexRoute
+  '/user/edit': typeof UserEditIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/profile/$userId': typeof ProfileUserIdRoute
+  '/user/$userId': typeof UserUserIdRoute
   '/messages/': typeof MessagesIndexRoute
   '/posts/': typeof PostsIndexRoute
   '/auth/login/': typeof AuthLoginIndexRoute
   '/auth/register/': typeof AuthRegisterIndexRoute
-  '/profile/edit/': typeof ProfileEditIndexRoute
+  '/user/edit/': typeof UserEditIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/profile/$userId'
+    | '/user/$userId'
     | '/messages'
     | '/posts'
     | '/auth/login'
     | '/auth/register'
-    | '/profile/edit'
+    | '/user/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/profile/$userId'
+    | '/user/$userId'
     | '/messages'
     | '/posts'
     | '/auth/login'
     | '/auth/register'
-    | '/profile/edit'
+    | '/user/edit'
   id:
     | '__root__'
     | '/'
-    | '/profile/$userId'
+    | '/user/$userId'
     | '/messages/'
     | '/posts/'
     | '/auth/login/'
     | '/auth/register/'
-    | '/profile/edit/'
+    | '/user/edit/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ProfileUserIdRoute: typeof ProfileUserIdRoute
+  UserUserIdRoute: typeof UserUserIdRoute
   MessagesIndexRoute: typeof MessagesIndexRoute
   PostsIndexRoute: typeof PostsIndexRoute
   AuthLoginIndexRoute: typeof AuthLoginIndexRoute
   AuthRegisterIndexRoute: typeof AuthRegisterIndexRoute
-  ProfileEditIndexRoute: typeof ProfileEditIndexRoute
+  UserEditIndexRoute: typeof UserEditIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -144,18 +144,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MessagesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/profile/$userId': {
-      id: '/profile/$userId'
-      path: '/profile/$userId'
-      fullPath: '/profile/$userId'
-      preLoaderRoute: typeof ProfileUserIdRouteImport
+    '/user/$userId': {
+      id: '/user/$userId'
+      path: '/user/$userId'
+      fullPath: '/user/$userId'
+      preLoaderRoute: typeof UserUserIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/profile/edit/': {
-      id: '/profile/edit/'
-      path: '/profile/edit'
-      fullPath: '/profile/edit'
-      preLoaderRoute: typeof ProfileEditIndexRouteImport
+    '/user/edit/': {
+      id: '/user/edit/'
+      path: '/user/edit'
+      fullPath: '/user/edit'
+      preLoaderRoute: typeof UserEditIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/register/': {
@@ -177,12 +177,12 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ProfileUserIdRoute: ProfileUserIdRoute,
+  UserUserIdRoute: UserUserIdRoute,
   MessagesIndexRoute: MessagesIndexRoute,
   PostsIndexRoute: PostsIndexRoute,
   AuthLoginIndexRoute: AuthLoginIndexRoute,
   AuthRegisterIndexRoute: AuthRegisterIndexRoute,
-  ProfileEditIndexRoute: ProfileEditIndexRoute,
+  UserEditIndexRoute: UserEditIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

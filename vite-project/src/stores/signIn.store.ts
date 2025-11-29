@@ -20,14 +20,17 @@ interface SignInResponse {
 class SignInStore {
 
     isLoggedIn: boolean = false
+    currentUser: { id: number } | null = null
 
     constructor() {
         makeObservable(this, {
             isLoggedIn: observable,
+            currentUser: observable,
             signIn: action,
             me: action,
             signOut: action
         })
+        this.me();
     }
 
     signIn = async (email: string, password: string) => {
@@ -48,6 +51,9 @@ class SignInStore {
                 runInAction(() => {
                     localStorage.setItem("authToken", data.accessToken)
                     this.isLoggedIn = true
+                    this.currentUser = {
+                        id: data.id
+                    }
                 })
                 return true;
             } else {
@@ -65,6 +71,7 @@ class SignInStore {
             if (!token) {
                 runInAction(() => {
                     this.isLoggedIn = false
+                    this.currentUser = null
                 })
                 return
             }
