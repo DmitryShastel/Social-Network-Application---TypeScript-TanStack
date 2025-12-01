@@ -1,5 +1,6 @@
 import {createRootRoute, Outlet} from '@tanstack/react-router'
 import {GlobalStyles} from "../modules/GlobalStyles";
+import {NotFoundPage} from "../modules/notFoundPage/NotFoundPage";
 
 export const Route = createRootRoute({
     component: () => (
@@ -11,5 +12,5 @@ export const Route = createRootRoute({
             <Outlet/>
         </>
     ),
-    notFoundComponent: () => <p>This page doesn't exist!</p>,
+    notFoundComponent: () => <><NotFoundPage/></>,
 })
