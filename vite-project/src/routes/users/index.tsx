@@ -1,9 +1,10 @@
 import {createFileRoute} from '@tanstack/react-router'
+import {ListOfUsers} from "../../modules/users/components/ListOfUsers";
 
 export const Route = createFileRoute('/users/')({
-    component: UserId,
+    component: Users,
 })
 
-function UserId() {
-    return <div>All users</div>
+function Users() {
+    return <div><ListOfUsers/></div>
 }

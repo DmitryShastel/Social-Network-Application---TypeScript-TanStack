@@ -1,9 +1,9 @@
-import {User, UserFormData} from "../modules/users/types/user";
+import {User, UserFormData, UsersResponse} from "../modules/users/types/user";
 import {makeObservable, observable, runInAction} from "mobx";
 
 class UserStore {
     user: User | null = null
-    allUsers: boolean = false
+    allUsers: UsersResponse | null = null
     isLoading: boolean = false
 
     constructor() {
@@ -25,7 +25,6 @@ class UserStore {
             })
             if (response.ok) {
                 const userData: User = await response.json()
-                console.log(userData)
                 runInAction(() => {
                     this.user = userData
                 })
@@ -63,6 +62,36 @@ class UserStore {
             }
         } catch (error) {
             return {success: false, error: 'Network error', isLoading: false}
+        }
+    }
+
+    usersPosts = async (userId: number) => {
+        try {
+            runInAction(() => {
+                this.isLoading = true;
+            })
+            const token = localStorage.getItem("authToken");
+            const limit: number = 5
+            const pageParam: number = 0
+            const skip = pageParam + limit
+
+            const response = await fetch(`https://dummyjson.com/users?limit=${limit}&skip=${skip}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+            })
+            if (response.ok) {
+                const userData: UsersResponse = await response.json()
+                runInAction(() => {
+                    this.allUsers = userData
+                    this.isLoading = false
+                })
+            }
+
+        } catch (error) {
+            return 'Failed to fetch posts'
         }
     }
 

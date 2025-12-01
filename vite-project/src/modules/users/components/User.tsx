@@ -115,11 +115,11 @@ export const User = observer(() => {
 
     console.log(user)
     const handleEdit = () => {
-        return router.navigate({to: '/users/$userId/edit'})
+        return router.navigate({to: '/users/$userId/edit/'})
     };
 
     const handleShowUsers = () => {
-        console.log('users list is opened');
+        return router.navigate({to: '/users/'})
     };
 
     const isOwnProfile = currentUser?.id && user?.id && currentUser.id === user.id
@@ -179,7 +179,7 @@ export const User = observer(() => {
                 ) : (
                     <></>
                 )}
-                
+
             </UserCard>
         </UserContainer>
     );
