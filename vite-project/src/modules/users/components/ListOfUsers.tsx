@@ -1,23 +1,9 @@
-import React from 'react';
-import {useInfiniteQuery} from '@tanstack/react-query';
+import React, {useEffect} from 'react';
 import styled from '@emotion/styled';
 import {UserWithPosts} from "./UserWithPosts";
-import {UsersResponse} from "../types/user";
+import UserStore from "../../../stores/user.store";
+import {observer} from "mobx-react-lite";
 
-
-const Container = styled.div`
-  min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 2rem;
-`;
-
-const Title = styled.h1`
-  color: white;
-  text-align: center;
-  margin-bottom: 2rem;
-  font-size: 2.5rem;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-`;
 
 const UsersList = styled.div`
   max-width: 1200px;
@@ -88,91 +74,67 @@ const EndMessage = styled.div`
 `;
 
 
-// Функции для запросов
-const fetchUsers = async ({pageParam = 0}): Promise<UsersResponse> => {
-    const limit = 5;
-    const skip = pageParam * limit;
+export const ListOfUsers = observer(() => {
+    const {allUsers, isLoading} = UserStore;
 
-    const response = await fetch(`https://dummyjson.com/users?limit=${limit}&skip=${skip}`);
-    if (!response.ok) throw new Error('Failed to fetch users');
-    return response.json();
-};
+    useEffect(() => {
+        if (!allUsers || allUsers.users.length === 0) {
+            UserStore.getUsersList(0);
+        }
+    }, [allUsers]);
 
-export const ListOfUsers = () => {
-    // Infinite query для пользователей
-    //@ts-ignore
-    const {
-        data,
-        fetchNextPage,
-        hasNextPage,
-        isFetchingNextPage,
-        isLoading,
-        error,
-    } = useInfiniteQuery({
-        queryKey: ['users'],
-        queryFn: fetchUsers,
-        getNextPageParam: (lastPage, pages) => {
-            const totalFetched = pages.reduce((total, page) => total + page.users.length, 0);
-            return totalFetched < lastPage.total ? pages.length : undefined;
-        },
-        initialPageParam: 0,
-    });
+    const users = allUsers?.users || [];
+    const totalUsers = allUsers?.total || 0;
+    const loadedCount = users.length;
+    const hasNextPage = loadedCount < totalUsers;
 
-    // Получаем всех пользователей из всех страниц
-    const allUsers = data?.pages.flatMap(page => page.users) || [];
+    const handleLoadMore = () => {
+        if (hasNextPage && !isLoading) {
+            UserStore.getUsersList(loadedCount);
+        }
+    };
 
-    // Обработка ошибок
-    if (error) {
+    if (isLoading && !users.length) {
         return (
-            <Container>
-                <Title>Users List</Title>
-                <div style={{textAlign: 'center', color: 'white', padding: '2rem'}}>
-                    <h3>Error loading users</h3>
-                    <p>{error.message}</p>
-                </div>
-            </Container>
+            <LoadingContainer>
+                <Spinner/>
+                <p>Loading users...</p>
+            </LoadingContainer>
         );
     }
 
     return (
-        <Container>
-            <Title>Users List</Title>
+        <>
+            <div style={{color: 'white', textAlign: 'center', marginBottom: '1rem'}}>
+                <p>Showing {loadedCount} of {totalUsers} users</p>
+            </div>
 
-            {isLoading ? (
-                <LoadingContainer>
-                    <Spinner/>
-                    <p>Loading users...</p>
-                </LoadingContainer>
-            ) : (
-                <>
-                    <UsersList>
-                        {allUsers.map((user) => (
-                            <UserWithPosts key={user.id} user={user}/>
-                        ))}
-                    </UsersList>
+            <UsersList>
+                {users.map((user) => (
+                    <UserWithPosts key={user.id} user={user}/>
+                ))}
+            </UsersList>
 
-                    {hasNextPage && (
-                        <LoadMoreButton
-                            onClick={() => fetchNextPage()}
-                            disabled={isFetchingNextPage}
-                        >
-                            {isFetchingNextPage ? 'Loading more...' : 'Load More Users'}
-                        </LoadMoreButton>
-                    )}
-
-                    {!hasNextPage && allUsers.length > 0 && (
-                        <EndMessage>
-                            <p>No more users to load</p>
-                        </EndMessage>
-                    )}
-
-                    {!isLoading && allUsers.length === 0 && (
-                        <EndMessage>
-                            <p>No users found</p>
-                        </EndMessage>
-                    )}
-                </>
+            {hasNextPage && (
+                <LoadMoreButton
+                    onClick={handleLoadMore}
+                    disabled={isLoading}
+                >
+                    {isLoading ? 'Loading more...' : 'Load More Users'}
+                </LoadMoreButton>
             )}
-        </Container>
+
+            {!hasNextPage && loadedCount > 0 && (
+                <EndMessage>
+                    <p>No more users to load</p>
+                </EndMessage>
+            )}
+
+            {!isLoading && loadedCount === 0 && (
+                <EndMessage>
+                    <p>No users found</p>
+                </EndMessage>
+            )}
+        </>
     );
-};
+});

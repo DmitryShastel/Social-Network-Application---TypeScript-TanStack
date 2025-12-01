@@ -9,6 +9,7 @@ class UserStore {
     constructor() {
         makeObservable(this, {
             user: observable,
+            allUsers: observable,
             isLoading: observable
         })
     }
@@ -65,15 +66,12 @@ class UserStore {
         }
     }
 
-    usersPosts = async (userId: number) => {
+    getUsersList = async (skip: number = 0, limit: number = 5) => {
         try {
             runInAction(() => {
                 this.isLoading = true;
             })
             const token = localStorage.getItem("authToken");
-            const limit: number = 5
-            const pageParam: number = 0
-            const skip = pageParam + limit
 
             const response = await fetch(`https://dummyjson.com/users?limit=${limit}&skip=${skip}`, {
                 method: 'GET',
@@ -83,11 +81,21 @@ class UserStore {
                 },
             })
             if (response.ok) {
-                const userData: UsersResponse = await response.json()
+                const userListData: UsersResponse = await response.json()
                 runInAction(() => {
-                    this.allUsers = userData
-                    this.isLoading = false
-                })
+                    if (skip === 0) {
+                        this.allUsers = userListData;
+                    } else {
+                        const currentUsers = this.allUsers?.users || [];
+                        this.allUsers = {
+                            users: [...currentUsers, ...userListData.users],
+                            total: userListData.total,
+                            skip: skip,
+                            limit: limit
+                        };
+                    }
+                    this.isLoading = false;
+                });
             }
 
         } catch (error) {
