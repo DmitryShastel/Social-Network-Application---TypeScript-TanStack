@@ -3,6 +3,8 @@ import {observer} from "mobx-react-lite";
 import {User} from "../types/user";
 import UserStore from "../../../stores/user.store";
 import {useEffect} from "react";
+import {Button} from "../../../shared/ui/Button/Button";
+import {useRouter} from "@tanstack/react-router";
 
 
 const UserCard = styled.div`
@@ -124,6 +126,7 @@ const ReactionItem = styled.div`
   gap: 0.25rem;
 `;
 
+
 const DEFAULT_AVATAR = 'https://via.placeholder.com/50/667eea/ffffff?text=U';
 
 interface UserWithPostsProps {
@@ -133,7 +136,7 @@ interface UserWithPostsProps {
 }
 
 export const UserWithPosts = observer(({user, isLoading, postsError}: UserWithPostsProps) => {
-
+    const router = useRouter()
     const posts = UserStore.getPostByUserId(user.id)
 
     useEffect(() => {
@@ -151,7 +154,10 @@ export const UserWithPosts = observer(({user, isLoading, postsError}: UserWithPo
         loadPosts();
     }, [user.id])
 
-    console.log(posts)
+    const handelUserAccount = () => {
+        router.navigate({to: '/users/$userId', params: {userId: user.id}})
+    }
+
 
     return (
         <UserCard>
@@ -169,6 +175,8 @@ export const UserWithPosts = observer(({user, isLoading, postsError}: UserWithPo
                     </UserName>
                     <UserEmail>{user?.email}</UserEmail>
                 </UserInfo>
+                <Button onClick={handelUserAccount} title={'User Account'}/>
+                <Button title={'Send Message'}/>
             </UserHeader>
 
             <PostsSection>
@@ -192,7 +200,7 @@ export const UserWithPosts = observer(({user, isLoading, postsError}: UserWithPo
 
                                 {post.tags && post.tags.length > 0 && (
                                     <PostTags>
-                                        {post.tags.slice(0, 3).map((tag, index) => (
+                                        {post.tags.slice(0, 5).map((tag, index) => (
                                             <Tag key={index}>{tag}</Tag>
                                         ))}
                                     </PostTags>

@@ -113,7 +113,6 @@ export const User = observer(() => {
         }
     }, [userId]);
 
-    console.log(user)
     const handleEdit = () => {
         return router.navigate({to: '/users/$userId/edit/'})
     };
