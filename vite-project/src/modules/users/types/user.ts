@@ -1,5 +1,3 @@
-// types/user.types.ts
-
 export interface Hair {
     color: string;
     type: string;
@@ -88,19 +86,19 @@ export interface UsersResponse {
 
 // Для формы редактирования пользователя
 export interface UserFormData {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    address: {
-        address: string;
-        city: string;
-        state: string;
-        postalCode: string;
-        country: string;
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    phone?: string;
+    address?: {
+        address?: string;
+        city?: string;
+        state?: string;
+        postalCode?: string;
+        country?: string;
     };
-    company: {
-        department: string;
-        title: string;
+    company?: {
+        department?: string;
+        title?: string;
     };
 }

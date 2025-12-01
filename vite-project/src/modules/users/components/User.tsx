@@ -3,7 +3,7 @@ import {Button} from '../../../shared/ui/Button/Button';
 import UserStore from "../../../stores/user.store";
 import {observer} from "mobx-react-lite";
 import {useEffect} from "react";
-import {useParams} from "@tanstack/react-router";
+import {useParams, useRouter} from "@tanstack/react-router";
 import SignInStore from "../../../stores/signIn.store";
 
 const UserContainer = styled.div`
@@ -104,6 +104,7 @@ export const User = observer(() => {
     const {user} = UserStore
     const {currentUser} = SignInStore;
     const {userId} = useParams({from: '/users/$userId/'})
+    const router = useRouter()
 
     useEffect(() => {
         if (userId) {
@@ -114,7 +115,7 @@ export const User = observer(() => {
 
     console.log(user)
     const handleEdit = () => {
-        console.log('Edit page is opened');
+        return router.navigate({to: '/users/$userId/edit'})
     };
 
     const handleShowUsers = () => {
@@ -178,8 +179,7 @@ export const User = observer(() => {
                 ) : (
                     <></>
                 )}
-
-
+                
             </UserCard>
         </UserContainer>
     );
