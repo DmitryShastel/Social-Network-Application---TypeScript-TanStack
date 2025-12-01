@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
 import {observer} from "mobx-react-lite";
 import {User} from "../types/user";
-import {Post} from "../../posts/types/post";
+import UserStore from "../../../stores/user.store";
+import {useEffect} from "react";
 
 
 const UserCard = styled.div`
@@ -127,13 +128,30 @@ const DEFAULT_AVATAR = 'https://via.placeholder.com/50/667eea/ffffff?text=U';
 
 interface UserWithPostsProps {
     user: User
-    posts: Post[]
     isLoading?: boolean
     postsError?: null
 }
 
-export const UserWithPosts = observer(({user, posts = [], isLoading, postsError}: UserWithPostsProps) => {
-    
+export const UserWithPosts = observer(({user, isLoading, postsError}: UserWithPostsProps) => {
+
+    const posts = UserStore.getPostByUserId(user.id)
+
+    useEffect(() => {
+        const loadPosts = async () => {
+            if (posts.length > 0) {
+                return;
+            }
+            try {
+                await UserStore.getUsersPosts(user.id);
+            } catch (error) {
+                console.error('Error loading posts:', error);
+            }
+        };
+
+        loadPosts();
+    }, [user.id])
+
+    console.log(posts)
 
     return (
         <UserCard>
@@ -164,9 +182,9 @@ export const UserWithPosts = observer(({user, posts = [], isLoading, postsError}
                     <div style={{textAlign: 'center', padding: '1rem', color: '#d32f2f'}}>
                         Failed to load posts
                     </div>
-                ) : posts.length > 0 ? (
+                ) : posts?.length > 0 ? (
                     <PostsGrid>
-                        {posts.map((post) => (
+                        {posts?.map((post) => (
                             <PostCard key={post.id}>
                                 <PostTitle>{post.title}</PostTitle>
 

@@ -1,15 +1,18 @@
 import {User, UserFormData, UsersResponse} from "../modules/users/types/user";
 import {makeObservable, observable, runInAction} from "mobx";
+import {Post, PostsResponse} from "../modules/posts/types/post";
 
 class UserStore {
     user: User | null = null
     allUsers: UsersResponse | null = null
     isLoading: boolean = false
+    allPosts: Array<{ userId: number, posts: Post[] }> = []
 
     constructor() {
         makeObservable(this, {
             user: observable,
             allUsers: observable,
+            allPosts: observable,
             isLoading: observable
         })
     }
@@ -101,6 +104,44 @@ class UserStore {
         } catch (error) {
             return 'Failed to fetch posts'
         }
+    }
+
+    getUsersPosts = async (userId: number) => {
+        try {
+            const token = localStorage.getItem("authToken")
+            const response = await fetch(`https://dummyjson.com/users/${userId}/posts`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+            })
+            if (response.ok) {
+                const postsData: PostsResponse = await response.json()
+                runInAction(() => {
+                    this.allPosts = this.allPosts.filter(post => post.userId !== userId)
+                    this.allPosts.push({
+                        userId: userId,
+                        posts: postsData.posts
+                    });
+                })
+                return postsData.posts;
+            } else {
+                runInAction(() => {
+                    this.allPosts = this.allPosts.filter(item => item.userId !== userId);
+                    this.allPosts.push({
+                        userId: userId,
+                        posts: []
+                    });
+                });
+            }
+        } catch (error) {
+        }
+    }
+
+    getPostByUserId = (userId: number): Post[] => {
+        const userPosts = this.allPosts.find(item => item.userId === userId);
+        return userPosts ? userPosts.posts : [];
     }
 
 }

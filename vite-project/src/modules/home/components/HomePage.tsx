@@ -128,9 +128,7 @@ export function HomePage() {
         fetchNextPage,
         threshold: 100
     });
-
-    console.log(data)
-
+    
     const allPosts = data?.pages.flatMap(page => page.posts) || [];
 
     return (
