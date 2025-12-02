@@ -146,9 +146,7 @@ export function HomePage() {
         setIsModalOpen(false);
         setTimeout(() => setSelectedPost(null), 300);
     };
-
-    console.log(allPosts)
-
+    
     return (
         <PageContainer>
             <Header/>

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {Post} from "../types";
 
 const ModalOverlay = styled.div`
@@ -161,6 +161,7 @@ const ReactionCount = styled.span`
   color: white;
   font-size: 1.25rem;
   font-weight: 600;
+  cursor: pointer;
 `;
 
 const StatsContainer = styled.div`
@@ -206,6 +207,10 @@ export function PostModal({
                               isOpen,
                               onClose,
                           }: PostModalProps) {
+
+    const [like, setLike] = useState<number>(post?.reactions?.likes || 0)
+    const [dislike, setDislike] = useState<number>(post?.reactions?.dislikes || 0)
+
     useEffect(() => {
         const handleEscape = (e: KeyboardEvent) => {
             if (e.key === "Escape") onClose();
@@ -221,12 +226,25 @@ export function PostModal({
             document.body.style.overflow = "unset";
         };
     }, [isOpen, onClose]);
+    useEffect(() => {
+        if (post) {
+            setLike(post.reactions.likes);
+            setDislike(post?.reactions?.dislikes)
+        }
+    }, [post]);
 
     const handleOverlayClick = (e: React.MouseEvent) => {
         if (e.target === e.currentTarget) {
             onClose();
         }
     };
+
+    const handelLike = () => {
+        alert('The like count is increased')
+    }
+    const handelDislike = () => {
+        alert('The dislike count is increased')
+    }
 
     if (!isOpen || !post) return null;
 
@@ -260,7 +278,12 @@ export function PostModal({
                             <ReactionIcon>👍</ReactionIcon>
                             <ReactionContent>
                                 <ReactionLabel>Likes</ReactionLabel>
-                                <ReactionCount>{post.reactions.likes}</ReactionCount>
+                                <ReactionCount
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handelLike();
+                                    }}
+                                >{like}</ReactionCount>
                             </ReactionContent>
                         </ReactionItem>
 
@@ -268,7 +291,12 @@ export function PostModal({
                             <ReactionIcon>👎</ReactionIcon>
                             <ReactionContent>
                                 <ReactionLabel>Dislikes</ReactionLabel>
-                                <ReactionCount>{post.reactions.dislikes}</ReactionCount>
+                                <ReactionCount
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handelDislike();
+                                    }}
+                                >{dislike}</ReactionCount>
                             </ReactionContent>
                         </ReactionItem>
 
