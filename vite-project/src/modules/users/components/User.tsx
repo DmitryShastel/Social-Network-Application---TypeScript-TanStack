@@ -5,6 +5,7 @@ import {observer} from "mobx-react-lite";
 import {useEffect} from "react";
 import {useParams, useRouter} from "@tanstack/react-router";
 import SignInStore from "../../../stores/signIn.store";
+import {OwnPosts} from "../../posts/components/OwnPost";
 
 const UserContainer = styled.div`
   min-height: 100vh;
@@ -180,6 +181,12 @@ export const User = observer(() => {
                 )}
 
             </UserCard>
+            {isOwnProfile && user?.id && (
+                <OwnPosts
+                    userId={user.id}
+                    isOwnProfile={isOwnProfile}
+                />
+            )}
         </UserContainer>
     );
 });
