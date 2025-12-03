@@ -2,6 +2,9 @@ import {useInfinitePosts} from "../hooks/useInfinitePosts";
 import {useInfiniteScroll} from "../hooks/useInfiniteScroll";
 import {Header} from "./Header";
 import styled from "@emotion/styled";
+import {useState} from "react";
+import {Post} from "../../posts/types/post";
+import {PostModal} from "../../posts/components/postModal";
 
 const PageContainer = styled.div`
   min-height: 100vh;
@@ -129,10 +132,21 @@ export function HomePage() {
         threshold: 100
     });
 
-    console.log(data)
+    const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const allPosts = data?.pages.flatMap(page => page.posts) || [];
 
+    const handlePostClick = (post: Post) => {
+        setSelectedPost(post);
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setTimeout(() => setSelectedPost(null), 300);
+    };
+    
     return (
         <PageContainer>
             <Header/>
@@ -142,7 +156,18 @@ export function HomePage() {
 
                 <PostsGrid>
                     {allPosts.map((post) => (
-                        <PostCard key={post.id}>
+                        <PostCard
+                            key={post.id}
+                            onClick={() => handlePostClick(post)}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    handlePostClick(post);
+                                }
+                            }}
+                        >
                             <PostContent>
                                 <PostTitle>{post.title}</PostTitle>
                                 <PostBody>
@@ -166,6 +191,12 @@ export function HomePage() {
                         <p>Loading posts...</p>
                     </LoadingContainer>
                 )}
+
+                <PostModal
+                    post={selectedPost}
+                    isOpen={isModalOpen}
+                    onClose={handleCloseModal}
+                />
 
                 {isFetchingNextPage && (
                     <LoadingContainer>
