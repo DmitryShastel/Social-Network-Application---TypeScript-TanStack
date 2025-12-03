@@ -158,6 +158,10 @@ export const UserWithPosts = observer(({user, isLoading, postsError}: UserWithPo
         router.navigate({to: '/users/$userId', params: {userId: user.id}})
     }
 
+    const handelUserMessage = () => {
+        router.navigate({to: '/message/$userId/', params: {userId: user.id}})
+    }
+
 
     return (
         <UserCard>
@@ -176,7 +180,7 @@ export const UserWithPosts = observer(({user, isLoading, postsError}: UserWithPo
                     <UserEmail>{user?.email}</UserEmail>
                 </UserInfo>
                 <Button onClick={handelUserAccount} title={'User Account'}/>
-                <Button title={'Send Message'}/>
+                <Button onClick={handelUserMessage} title={'Send Message'}/>
             </UserHeader>
 
             <PostsSection>

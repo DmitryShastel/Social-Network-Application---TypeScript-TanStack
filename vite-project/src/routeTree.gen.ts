@@ -12,8 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UsersIndexRouteImport } from './routes/users/index'
 import { Route as PostsIndexRouteImport } from './routes/posts/index'
-import { Route as MessagesIndexRouteImport } from './routes/messages/index'
+import { Route as MessageIndexRouteImport } from './routes/message/index'
 import { Route as UsersUserIdIndexRouteImport } from './routes/users/$userId/index'
+import { Route as MessageUserIdIndexRouteImport } from './routes/message/$userId/index'
 import { Route as AuthRegisterIndexRouteImport } from './routes/auth/register/index'
 import { Route as AuthLoginIndexRouteImport } from './routes/auth/login/index'
 import { Route as UsersUserIdEditRouteImport } from './routes/users/$userId/edit'
@@ -33,14 +34,19 @@ const PostsIndexRoute = PostsIndexRouteImport.update({
   path: '/posts/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MessagesIndexRoute = MessagesIndexRouteImport.update({
-  id: '/messages/',
-  path: '/messages/',
+const MessageIndexRoute = MessageIndexRouteImport.update({
+  id: '/message/',
+  path: '/message/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const UsersUserIdIndexRoute = UsersUserIdIndexRouteImport.update({
   id: '/users/$userId/',
   path: '/users/$userId/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MessageUserIdIndexRoute = MessageUserIdIndexRouteImport.update({
+  id: '/message/$userId/',
+  path: '/message/$userId/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRegisterIndexRoute = AuthRegisterIndexRouteImport.update({
@@ -61,76 +67,83 @@ const UsersUserIdEditRoute = UsersUserIdEditRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/messages': typeof MessagesIndexRoute
+  '/message': typeof MessageIndexRoute
   '/posts': typeof PostsIndexRoute
   '/users': typeof UsersIndexRoute
   '/users/$userId/edit': typeof UsersUserIdEditRoute
   '/auth/login': typeof AuthLoginIndexRoute
   '/auth/register': typeof AuthRegisterIndexRoute
+  '/message/$userId': typeof MessageUserIdIndexRoute
   '/users/$userId': typeof UsersUserIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/messages': typeof MessagesIndexRoute
+  '/message': typeof MessageIndexRoute
   '/posts': typeof PostsIndexRoute
   '/users': typeof UsersIndexRoute
   '/users/$userId/edit': typeof UsersUserIdEditRoute
   '/auth/login': typeof AuthLoginIndexRoute
   '/auth/register': typeof AuthRegisterIndexRoute
+  '/message/$userId': typeof MessageUserIdIndexRoute
   '/users/$userId': typeof UsersUserIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/messages/': typeof MessagesIndexRoute
+  '/message/': typeof MessageIndexRoute
   '/posts/': typeof PostsIndexRoute
   '/users/': typeof UsersIndexRoute
   '/users/$userId/edit': typeof UsersUserIdEditRoute
   '/auth/login/': typeof AuthLoginIndexRoute
   '/auth/register/': typeof AuthRegisterIndexRoute
+  '/message/$userId/': typeof MessageUserIdIndexRoute
   '/users/$userId/': typeof UsersUserIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/messages'
+    | '/message'
     | '/posts'
     | '/users'
     | '/users/$userId/edit'
     | '/auth/login'
     | '/auth/register'
+    | '/message/$userId'
     | '/users/$userId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/messages'
+    | '/message'
     | '/posts'
     | '/users'
     | '/users/$userId/edit'
     | '/auth/login'
     | '/auth/register'
+    | '/message/$userId'
     | '/users/$userId'
   id:
     | '__root__'
     | '/'
-    | '/messages/'
+    | '/message/'
     | '/posts/'
     | '/users/'
     | '/users/$userId/edit'
     | '/auth/login/'
     | '/auth/register/'
+    | '/message/$userId/'
     | '/users/$userId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  MessagesIndexRoute: typeof MessagesIndexRoute
+  MessageIndexRoute: typeof MessageIndexRoute
   PostsIndexRoute: typeof PostsIndexRoute
   UsersIndexRoute: typeof UsersIndexRoute
   UsersUserIdEditRoute: typeof UsersUserIdEditRoute
   AuthLoginIndexRoute: typeof AuthLoginIndexRoute
   AuthRegisterIndexRoute: typeof AuthRegisterIndexRoute
+  MessageUserIdIndexRoute: typeof MessageUserIdIndexRoute
   UsersUserIdIndexRoute: typeof UsersUserIdIndexRoute
 }
 
@@ -157,11 +170,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PostsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/messages/': {
-      id: '/messages/'
-      path: '/messages'
-      fullPath: '/messages'
-      preLoaderRoute: typeof MessagesIndexRouteImport
+    '/message/': {
+      id: '/message/'
+      path: '/message'
+      fullPath: '/message'
+      preLoaderRoute: typeof MessageIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/users/$userId/': {
@@ -169,6 +182,13 @@ declare module '@tanstack/react-router' {
       path: '/users/$userId'
       fullPath: '/users/$userId'
       preLoaderRoute: typeof UsersUserIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/message/$userId/': {
+      id: '/message/$userId/'
+      path: '/message/$userId'
+      fullPath: '/message/$userId'
+      preLoaderRoute: typeof MessageUserIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/register/': {
@@ -197,12 +217,13 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  MessagesIndexRoute: MessagesIndexRoute,
+  MessageIndexRoute: MessageIndexRoute,
   PostsIndexRoute: PostsIndexRoute,
   UsersIndexRoute: UsersIndexRoute,
   UsersUserIdEditRoute: UsersUserIdEditRoute,
   AuthLoginIndexRoute: AuthLoginIndexRoute,
   AuthRegisterIndexRoute: AuthRegisterIndexRoute,
+  MessageUserIdIndexRoute: MessageUserIdIndexRoute,
   UsersUserIdIndexRoute: UsersUserIdIndexRoute,
 }
 export const routeTree = rootRouteImport
