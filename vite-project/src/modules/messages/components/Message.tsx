@@ -1,10 +1,11 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import styled from '@emotion/styled';
 import {css} from '@emotion/react';
 import UserStore from "../../../stores/user.store";
 import {observer} from "mobx-react-lite";
 import {useParams} from "@tanstack/react-router";
 import {MessageData} from "../types/message"
+import {useWebSocket} from "../../../ws/useWebsocket";
 
 
 const PageContainer = styled.div`
@@ -173,40 +174,13 @@ export const Message = observer(() => {
         {id: 2, text: 'hi there! everything fine!', sender: 'user', timestamp: '10:01'},
     ]);
 
-    const socketRef = useRef<WebSocket | null>(null)
 
     const {user} = UserStore
     const {userId} = useParams({from: '/message/$userId/'})
 
-    useEffect(() => {
-        if (userId) {
-            const id = parseInt(userId)
-            UserStore.currentUser(id);
-        }
-    }, [userId]);
-    useEffect(() => {
-
-        if (socketRef.current?.readeState === WebSocket.OPEN ||
-            socketRef.current?.readeState === WebSocket.CONNECTING
-        ) {
-            return
-        }
-
-        const socket = new WebSocket("wss://ws.ifelse.io")
-        socketRef.current = socket
-
-        socket.onopen = () => {
-            console.log('WebSocket соединение установлено')
-        }
-
-        socket.onmessage = (event) => {
-            const receivedMessage = event.data
-
-            //block technical messages
-            if (receivedMessage.includes('Request served by')) {
-                return
-            }
-
+    const {sendMessage, isConnected} = useWebSocket(
+        "wss://ws.ifelse.io",
+        useCallback((receivedMessage: string) => {
             const newMessage: MessageData = {
                 id: Date.now(),
                 text: receivedMessage,
@@ -214,18 +188,20 @@ export const Message = observer(() => {
                 timestamp: new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})
             }
             setMessages(prev => [...prev, newMessage])
+        }, []),
+        {
+            reconnectInterval: 60000,
+            maxReconnectAttempts: 10,
+            shouldReconnect: true,
         }
+    )
 
-        socket.onerror = (error) => {
-            console.error('WebSocket ошибка:', error)
+    useEffect(() => {
+        if (userId) {
+            const id = parseInt(userId)
+            UserStore.currentUser(id);
         }
-
-        socket.onclose = () => {
-            console.log('WebSocket соединение закрыто')
-        }
-
-
-    }, [])
+    }, [userId]);
 
     const handlerOnchange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue(e.currentTarget.value)
@@ -235,15 +211,13 @@ export const Message = observer(() => {
         if (!value.trim()) return
 
         const newMessage: MessageData = {
-            id: messages.length + 1,
+            id: Date.now(),
             text: value,
             sender: 'user',
             timestamp: new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})
         }
 
-        if (socketRef.current?.readyState === WebSocket.OPEN) {
-            socketRef.current.send(value)
-        }
+        sendMessage(value)
 
         setMessages(prev => [...prev, newMessage])
         setValue('')
@@ -283,9 +257,7 @@ export const Message = observer(() => {
                 <div>
                     <h2 css={{margin: 0, fontSize: '16px', fontWeight: 600}}>{user?.firstName}</h2>
                     <p css={{margin: 0, fontSize: '12px', opacity: 0.7, color: '#667eea'}}>
-                        {socketRef.current?.readyState === WebSocket.OPEN
-                            ? 'online • connected'
-                            : 'connecting...'}
+                        {isConnected ? 'online • connected' : 'connecting...'}
                     </p>
                 </div>
             </ChatHeader>
@@ -312,10 +284,10 @@ export const Message = observer(() => {
                     onChange={handlerOnchange}
                     onKeyPress={handleKeyPress}
                     placeholder="Enter your message..."
-                    disabled={false}
+                    disabled={!isConnected}
                     autoFocus
                 />
-                <SendButton type="submit" onClick={handleSendMessage}>
+                <SendButton type="submit" onClick={handleSendMessage} disabled={!isConnected}>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <line x1="22" y1="2" x2="11" y2="13"></line>
                         <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
