@@ -106,6 +106,7 @@ export const User = observer(() => {
     const {currentUser} = SignInStore;
     const {userId} = useParams({from: '/users/$userId/'})
     const router = useRouter()
+  
 
     useEffect(() => {
         if (userId) {

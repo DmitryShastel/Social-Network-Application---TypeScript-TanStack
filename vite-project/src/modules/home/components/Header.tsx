@@ -99,6 +99,9 @@ export const Header = observer(() => {
                                 Profile
                             </NavButton>
                             <StyledButton title={'Log out'} onClick={() => SignInStore.signOut()}/>
+                            <NavButton to="/message/$userId/" params={{userId: currentUser?.id || 1}}>
+                                Messages
+                            </NavButton>
                         </>
                     ) : (
                         <>
