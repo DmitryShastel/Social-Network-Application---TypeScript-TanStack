@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import {useEffect, useState} from "react";
 import {Post} from "../types";
+import {toast, ToastContainer} from "react-toastify";
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -240,10 +241,10 @@ export function PostModal({
     };
 
     const handelLike = () => {
-        alert('The like count is increased')
+        toast('The like count is increased')
     }
     const handelDislike = () => {
-        alert('The dislike count is increased')
+        toast('The dislike count is increased')
     }
 
     if (!isOpen || !post) return null;
@@ -256,6 +257,7 @@ export function PostModal({
     return (
         <ModalOverlay onClick={handleOverlayClick}>
             <ModalContent>
+                <ToastContainer/>
                 <CloseButton onClick={onClose} aria-label="Close modal"/>
 
                 <ModalHeader>
