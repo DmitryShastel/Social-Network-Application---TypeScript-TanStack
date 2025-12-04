@@ -1,19 +1,17 @@
-// Send message
-// {
-//     type: 'message:send',
-//         recipientId: 'user-id',
-//     content: 'message text'
-// }
-//
-// // Receive message
-// {
-//     type: 'message:receive',
-//         id: 'message-id',
-//     senderId: 'user-id',
-//     senderName: 'User Name',
-//     content: 'message text',
-//     createdAt: '2024-01-01T00:00:00.000Z'
-// }
+export interface SendMessageData {
+    type: 'message:send';
+    recipientId: string;
+    content: string;
+}
+
+export interface ReceiveMessageData {
+    type: 'message:receive';
+    id: string;
+    senderId: string;
+    senderName: string;
+    content: string;
+    createdAt: string;
+}
 
 export interface MessageData {
     id: number;
