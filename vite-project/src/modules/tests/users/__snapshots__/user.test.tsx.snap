@@ -1,0 +1,26 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`User Component Structure > has correct data flow structure 1`] = `
+{
+  "computedValues": [
+    "isOwnProfile",
+  ],
+  "conditionalRendering": [
+    "isOwnProfile ? EditButtons : EmptyFragment",
+    "isOwnProfile && user?.id ? OwnPosts : nothing",
+  ],
+  "eventHandlers": [
+    "handleEdit",
+    "handleShowUsers",
+  ],
+  "hooksUsed": [
+    "useParams",
+    "useRouter",
+    "useEffect",
+  ],
+  "storesUsed": [
+    "UserStore",
+    "SignInStore",
+  ],
+}
+`;
