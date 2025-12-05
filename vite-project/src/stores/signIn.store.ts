@@ -94,6 +94,7 @@ class SignInStore {
         localStorage.removeItem("authToken")
         runInAction(() => {
             this.isLoggedIn = false
+            this.currentUser = null
         })
     }
 }
