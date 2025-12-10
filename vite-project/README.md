@@ -153,8 +153,9 @@ npm run format
 
 # Generate TanStack Router routes
 npm run generate:routes
-📁 Project Structure
-text
+## 📁 Project Structure
+
+```text
 src/
 ├── modules/              # Feature modules
 │   ├── auth/            # Authentication
