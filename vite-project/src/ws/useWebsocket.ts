@@ -17,7 +17,7 @@ export const useWebSocket = (url: string, onMessage: (message: string) => void, 
             socketRef.current.send(message);
             return true;
         }
-        console.warn('WebSocket не подключен');
+        console.warn('WebSocket is connected');
         return false;
     }, []);
 
@@ -31,14 +31,14 @@ export const useWebSocket = (url: string, onMessage: (message: string) => void, 
             socketRef.current.close();
         }
 
-        console.log('Установка WebSocket соединения...');
+        console.log('WebSocket is connecting...');
 
         const socket = new WebSocket(url);
         socketRef.current = socket;
 
         socket.onopen = () => {
             if (!isMountedRef.current) return;
-            console.log('WebSocket соединение установлено');
+            console.log('WebSocket is connected');
             setIsConnected(true);
         };
 
@@ -53,18 +53,18 @@ export const useWebSocket = (url: string, onMessage: (message: string) => void, 
 
         socket.onerror = (error) => {
             if (!isMountedRef.current) return;
-            console.error('WebSocket ошибка:', error);
+            console.error('WebSocket error:', error);
             setIsConnected(false);
         };
 
         socket.onclose = () => {
             if (!isMountedRef.current) return;
-            console.log('WebSocket соединение закрыто');
+            console.log('WebSocket connection is closed');
             setIsConnected(false);
 
             reconnectTimerRef.current = setTimeout(() => {
                 if (isMountedRef.current) {
-                    console.log('Автоматическое переподключение...');
+                    console.log('Automatic connection...');
                     setupWebSocket();
                 }
             }, 60000);
@@ -76,7 +76,7 @@ export const useWebSocket = (url: string, onMessage: (message: string) => void, 
 
         const periodicReconnectTimer = setInterval(() => {
             if (isMountedRef.current) {
-                console.log('Периодическое переподключение (каждые 60 секунд)...');
+                console.log('Periodic reconnection (every 60 seconds)...');
                 setupWebSocket();
             }
         }, 60000);
