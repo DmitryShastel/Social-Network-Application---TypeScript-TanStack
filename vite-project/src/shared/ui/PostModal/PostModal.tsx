@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
-import {Post} from "../types";
+import {Post} from "../../../modules/posts/types";
 import {toast, ToastContainer} from "react-toastify";
-import * as S from "../styles/postModal";
+import * as S from "./styles/postModal";
 
 interface PostModalProps {
     post: Post | null;

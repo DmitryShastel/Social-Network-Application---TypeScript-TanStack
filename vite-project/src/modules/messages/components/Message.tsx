@@ -6,6 +6,7 @@ import {useWebSocket} from "../../../ws/useWebsocket";
 import UserStore from "../../../stores/user.store";
 import * as S from "../styles/messages";
 
+
 export const Message = observer(() => {
     const [value, setValue] = useState('')
     const [messages, setMessages] = useState<MessageData[]>([

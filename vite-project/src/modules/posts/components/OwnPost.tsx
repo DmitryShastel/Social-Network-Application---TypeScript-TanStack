@@ -1,7 +1,7 @@
 import {observer} from "mobx-react-lite";
 import {useEffect, useState} from "react";
 import {Post} from "../types";
-import {PostModal} from "./PostModal";
+import {PostModal} from "../../../shared/ui/PostModal/PostModal";
 import UserStore from "../../../stores/user.store";
 import * as S from "../styles/ownPost";
 
@@ -49,7 +49,7 @@ export const OwnPosts = observer(({userId, isOwnProfile}: OwnPostsProps) => {
     };
 
     if (!isOwnProfile) {
-        return null;
+        return <p>Posts are loading ...</p>;
     }
 
     const posts = UserStore.getPostByUserId(userId);

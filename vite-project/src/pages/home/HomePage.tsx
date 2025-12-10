@@ -1,10 +1,10 @@
-import {useInfinitePosts} from "../hooks/useInfinitePosts";
-import {useInfiniteScroll} from "../hooks/useInfiniteScroll";
-import {Header} from "./Header";
+import {useInfinitePosts} from "../../modules/posts/hooks/useInfinitePosts";
+import {useInfiniteScroll} from "../../shared/hooks/useInfiniteScroll";
+import {Header} from "../../modules/home/components/Header";
 import {useState} from "react";
-import {Post} from "../../posts/types/post";
-import {PostModal} from "../../posts/components/PostModal";
-import * as S from "../styles/homePage";
+import {Post} from "../../modules/posts/types/post";
+import {PostModal} from "../../shared/ui/PostModal/PostModal";
+import * as S from "./styles/home";
 
 export function HomePage() {
     const {
