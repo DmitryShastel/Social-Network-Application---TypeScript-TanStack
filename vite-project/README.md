@@ -1,86 +1,119 @@
-```markdown
-# Social Network Application
-
-## 📱 About the Application
-
+Social Network Application
+📱 About the Application
 A modern social networking web application built with a focus on TypeScript and practical skills using React + Vite + TanStack. The application demonstrates real-world development practices with a complete feature set.
 
-**Live Demo**: [https://dmitryshastel.github.io/Social-Network-TanStack/](https://dmitryshastel.github.io/Social-Network-TanStack/)
+Live Demo: https://dmitryshastel.github.io/Social-Network-TanStack/
 
-## 🚀 Technology Stack
+🚀 Technology Stack
+React 19 - UI library for building user interfaces
 
-- **React 19** - UI library for building user interfaces
-- **TypeScript** - Strict typing and improved code reliability
-- **Vite** - Modern build tool and development server
-- **TanStack Router** - Client-side routing
-- **TanStack Query** - Async state management
-- **MobX** - State management
-- **Emotion** - CSS-in-JS for styling
-- **Zod** - Schema and type validation
-- **WebSocket** - Real-time messaging
+TypeScript - Strict typing and improved code reliability
 
-## ✨ Core Features
+Vite - Modern build tool and development server
 
-### 📋 Application Pages
+TanStack Router - Client-side routing
 
-1. **Posts Feed** (`/`)
-   - Infinite scroll posts display
-   - Post cards with author info, title, and preview
-   - Like/unlike functionality
-   - Modal view for full post details
-   - Loading states and error handling
+TanStack Query - Async state management
 
-2. **User Profile** (`/users/$userId`)
-   - View any user's profile
-   - Display user information: avatar, name, bio, join date
-   - Show user's posts list
-   - "Edit Profile" button for own profile
+MobX - State management
 
-3. **Sign In** (`/auth/login`)
-   - Login form with validation
-   - Email/Username and password fields
-   - Form validation with Zod
-   - Error handling for invalid credentials
-   - Redirect after successful login
+Emotion - CSS-in-JS for styling
 
-4. **Sign Up** (`/auth/register`)
-   - Registration form with validation
-   - Name, email, password, and confirm password fields
-   - Form validation with Zod
-   - Redirect after successful registration
+Zod - Schema and type validation
 
-5. **Edit Profile** (`/users/$userId/edit`)
-   - Protected route (authenticated users only)
-   - Edit personal information: name, bio, avatar
-   - Form validation with Zod
-   - Save changes with loading states
+WebSocket - Real-time messaging
 
-6. **Messaging** (`/message/$userId`) - *Extra Credit*
-   - Real-time messaging via WebSocket
-   - One-to-one conversation interface
-   - Message history from API
-   - Send/receive messages in real-time
-   - Connection status indicator
+✨ Core Features
+📋 Application Pages
+Posts Feed (/)
 
-### 🎯 Key Features
+Infinite scroll posts display
 
-- **Strict TypeScript Typing** - Full type safety throughout the application
-- **Modular Architecture** - Well-organized project structure
-- **Real-time Communication** - WebSocket integration for messaging
-- **Form Validation** - Comprehensive validation using Zod schemas
-- **Responsive Design** - Mobile-friendly interface
-- **State Management** - Efficient state handling with MobX
-- **API Integration** - Async data fetching with TanStack Query
+Post cards with author info, title, and preview
 
-## 🛠️ Project Setup
+Like/unlike functionality
 
-### Prerequisites
-- Node.js 18+ 
-- npm or yarn
+Modal view for full post details
 
-### Installation
+Loading states and error handling
 
-```bash
+User Profile (/users/$userId)
+
+View any user's profile
+
+Display user information: avatar, name, bio, join date
+
+Show user's posts list
+
+"Edit Profile" button for own profile
+
+Sign In (/auth/login)
+
+Login form with validation
+
+Email/Username and password fields
+
+Form validation with Zod
+
+Error handling for invalid credentials
+
+Redirect after successful login
+
+Sign Up (/auth/register)
+
+Registration form with validation
+
+Name, email, password, and confirm password fields
+
+Form validation with Zod
+
+Redirect after successful registration
+
+Edit Profile (/users/$userId/edit)
+
+Protected route (authenticated users only)
+
+Edit personal information: name, bio, avatar
+
+Form validation with Zod
+
+Save changes with loading states
+
+Messaging (/message/$userId) - Extra Credit
+
+Real-time messaging via WebSocket
+
+One-to-one conversation interface
+
+Message history from API
+
+Send/receive messages in real-time
+
+Connection status indicator
+
+🎯 Key Features
+Strict TypeScript Typing - Full type safety throughout the application
+
+Modular Architecture - Well-organized project structure
+
+Real-time Communication - WebSocket integration for messaging
+
+Form Validation - Comprehensive validation using Zod schemas
+
+Responsive Design - Mobile-friendly interface
+
+State Management - Efficient state handling with MobX
+
+API Integration - Async data fetching with TanStack Query
+
+🛠️ Project Setup
+Prerequisites
+Node.js 18+
+
+npm or yarn
+
+Installation
+bash
 # Clone the repository
 git clone https://github.com/DmitryShastel/Social-Network-TanStack.git
 
@@ -120,8 +153,9 @@ npm run format
 
 # Generate TanStack Router routes
 npm run generate:routes
-📁 Project Structure
-text
+## 📁 Project Structure
+
+```text
 src/
 ├── modules/              # Feature modules
 │   ├── auth/            # Authentication
