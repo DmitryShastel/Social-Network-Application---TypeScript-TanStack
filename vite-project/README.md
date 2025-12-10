@@ -157,18 +157,22 @@ npm run generate:routes
 
 ```text
 src/
-├── modules/              # Feature modules
-│   ├── auth/            # Authentication
-│   ├── home/            # Home page & posts feed
-│   ├── message/         # Messaging module
-│   ├── posts/           # Posts functionality
-│   ├── users/           # User profiles
-│   └── tests/           # Test files
-├── routes/              # TanStack Router routes
-├── stores/              # MobX stores
-├── shared/              # Shared components & utilities
-├── styles/              # Global styles & Emotion
-└── types/               # TypeScript type definitions
+├── modules/             # Feature modules
+│   ├── auth/           # Authentication
+│   ├── home/           # Home page & posts feed
+│   ├── messages/       # Messaging module (renamed from "message")
+│   ├── notFoundPage/   # 404 page component
+│   ├── posts/          # Posts functionality
+│   ├── users/          # User profiles
+│   └── tests/          # Test files
+├── routes/             # TanStack Router route definitions
+├── pages/              # Page components (if separate from modules)
+├── stores/             # MobX stores
+├── shared/             # Shared components & utilities
+├── viteClient/         # Vite/client configuration
+├── ws/                 # WebSocket utilities
+└── types/              # TypeScript type definitions
+
 🚀 Deployment
 Deploy to GitHub Pages
 The application is configured for automatic deployment to GitHub Pages:
