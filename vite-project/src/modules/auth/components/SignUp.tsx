@@ -1,16 +1,7 @@
-import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import * as S from "../styles/signUp";
 import {SignUpFormData, signUpSchema} from "../services/signUpSchema";
-
-const formConfig = {
-    resolver: zodResolver(signUpSchema),
-    defaultValues: {
-        email: '',
-        password: '',
-        confirmPassword: ''
-    },
-};
+import {useForm} from "react-hook-form";
 
 export const SignUp = () => {
     const {
@@ -18,7 +9,15 @@ export const SignUp = () => {
         handleSubmit,
         formState: {errors, isSubmitting},
         setError,
-    } = useForm<SignUpFormData>(formConfig);
+    } = useForm({
+        resolver: zodResolver(signUpSchema),
+        defaultValues: {
+            email: '',
+            password: '',
+            confirmPassword: ''
+        },
+    });
+
 
     const onSubmit = async (data: SignUpFormData) => {
         try {
