@@ -1,24 +1,23 @@
 import {useForm} from 'react-hook-form';
-import {signInStyles} from "../styles/signInStyles";
-import {SignInFormData, signInSchema} from "../services/signInSchema";
 import {observer} from "mobx-react-lite";
 import SignInStore from "../../../stores/signIn.store";
 import {useRouter} from "@tanstack/react-router";
 import {zodResolver} from "@hookform/resolvers/zod";
-
+import {SignInFormData, signInSchema} from "../services/signInSchema";
+import * as S from "../styles/signIn";
 
 export const SignIn = observer(() => {
-    //@ts-ignore
+
     const {
         register,
         handleSubmit,
         formState: {errors, isSubmitting},
         setError,
-    } = useForm<SignInFormData>({
+    } = useForm({
         resolver: zodResolver(signInSchema),
         defaultValues: {
-            username: 'emilys',
-            password: 'emilyspass',
+            username: '',
+            password: '',
         },
     });
 
@@ -41,59 +40,83 @@ export const SignIn = observer(() => {
         }
     };
 
-    return (
-        <div css={signInStyles.container}>
-            <div css={signInStyles.formContainer}>
-                <h2 css={signInStyles.title}>Sign In</h2>
+    const handleTestLogin = async () => {
 
-                <form onSubmit={handleSubmit(onSubmit)} css={signInStyles.form}>
-                    <div css={signInStyles.fieldGroup}>
-                        <label css={signInStyles.label} htmlFor="username">
+        try {
+            const success = await SignInStore.signIn('emilys', 'emilyspass')
+            if (success) {
+                await router.navigate({to: '/'});
+            } else {
+                setError('root', {
+                    message: 'Invalid username or password'
+                });
+            }
+        } catch (error) {
+            setError('root', {
+                message: 'An error occurred during sign in'
+            });
+        }
+    };
+
+    return (
+        <S.Container>
+            <S.FormContainer>
+                <S.Title>Sign In</S.Title>
+
+                <S.Form onSubmit={handleSubmit(onSubmit)}>
+                    <S.FieldGroup>
+                        <S.Label htmlFor="username">
                             Email / Username
-                        </label>
-                        <input
-                            css={[signInStyles.input, errors.username && signInStyles.inputError]}
+                        </S.Label>
+                        <S.Input
                             id="username"
                             type="text"
                             placeholder="Enter your email or username"
+                            hasError={!!errors.username}
                             {...register('username')}
                         />
                         {errors.username && (
-                            <span css={signInStyles.errorText}>{errors.username.message}</span>
+                            <S.ErrorText>{errors.username.message}</S.ErrorText>
                         )}
-                    </div>
+                    </S.FieldGroup>
 
-                    <div css={signInStyles.fieldGroup}>
-                        <label css={signInStyles.label} htmlFor="password">
+                    <S.FieldGroup>
+                        <S.Label htmlFor="password">
                             Password
-                        </label>
-                        <input
-                            css={[signInStyles.input, errors.password && signInStyles.inputError]}
+                        </S.Label>
+                        <S.Input
                             id="password"
                             type="password"
                             placeholder="Enter your password"
+                            hasError={!!errors.password}
                             {...register('password')}
                         />
                         {errors.password && (
-                            <span css={signInStyles.errorText}>{errors.password.message}</span>
+                            <S.ErrorText>{errors.password.message}</S.ErrorText>
                         )}
-                    </div>
+                    </S.FieldGroup>
 
-                    <button
+                    <S.Button
                         type="submit"
                         disabled={isSubmitting}
-                        css={[signInStyles.button, isSubmitting && signInStyles.buttonDisabled]}
                     >
                         {isSubmitting ? 'Signing In...' : 'Sign In'}
-                    </button>
+                    </S.Button>
 
-                    <div css={signInStyles.linksContainer}>
-                        <a href="/auth/register" css={signInStyles.link}>
+                    <S.Button
+                        type="button"
+                        onClick={handleTestLogin}
+                    >
+                        Test Login
+                    </S.Button>
+
+                    <S.LinksContainer>
+                        <S.Link href="/auth/register">
                             Don't have an account? Sign up
-                        </a>
-                    </div>
-                </form>
-            </div>
-        </div>
+                        </S.Link>
+                    </S.LinksContainer>
+                </S.Form>
+            </S.FormContainer>
+        </S.Container>
     );
 });

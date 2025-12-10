@@ -11,9 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PostsIndexRouteImport } from './routes/posts/index'
-import { Route as MessagesIndexRouteImport } from './routes/messages/index'
-import { Route as UsersUserIdRouteImport } from './routes/users/$userId'
-import { Route as UsersEditIndexRouteImport } from './routes/users/edit/index'
 import { Route as AuthRegisterIndexRouteImport } from './routes/auth/register/index'
 import { Route as AuthLoginIndexRouteImport } from './routes/auth/login/index'
 
@@ -25,21 +22,6 @@ const IndexRoute = IndexRouteImport.update({
 const PostsIndexRoute = PostsIndexRouteImport.update({
   id: '/posts/',
   path: '/posts/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MessagesIndexRoute = MessagesIndexRouteImport.update({
-  id: '/messages/',
-  path: '/messages/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const UsersUserIdRoute = UsersUserIdRouteImport.update({
-  id: '/users/$userId',
-  path: '/users/$userId',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const UsersEditIndexRoute = UsersEditIndexRouteImport.update({
-  id: '/users/edit/',
-  path: '/users/edit/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRegisterIndexRoute = AuthRegisterIndexRouteImport.update({
@@ -55,70 +37,36 @@ const AuthLoginIndexRoute = AuthLoginIndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/users/$userId': typeof UsersUserIdRoute
-  '/messages': typeof MessagesIndexRoute
   '/posts': typeof PostsIndexRoute
   '/auth/login': typeof AuthLoginIndexRoute
   '/auth/register': typeof AuthRegisterIndexRoute
-  '/users/edit': typeof UsersEditIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/users/$userId': typeof UsersUserIdRoute
-  '/messages': typeof MessagesIndexRoute
   '/posts': typeof PostsIndexRoute
   '/auth/login': typeof AuthLoginIndexRoute
   '/auth/register': typeof AuthRegisterIndexRoute
-  '/users/edit': typeof UsersEditIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/users/$userId': typeof UsersUserIdRoute
-  '/messages/': typeof MessagesIndexRoute
   '/posts/': typeof PostsIndexRoute
   '/auth/login/': typeof AuthLoginIndexRoute
   '/auth/register/': typeof AuthRegisterIndexRoute
-  '/users/edit/': typeof UsersEditIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/users/$userId'
-    | '/messages'
-    | '/posts'
-    | '/auth/login'
-    | '/auth/register'
-    | '/users/edit'
+  fullPaths: '/' | '/posts' | '/auth/login' | '/auth/register'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/users/$userId'
-    | '/messages'
-    | '/posts'
-    | '/auth/login'
-    | '/auth/register'
-    | '/users/edit'
-  id:
-    | '__root__'
-    | '/'
-    | '/users/$userId'
-    | '/messages/'
-    | '/posts/'
-    | '/auth/login/'
-    | '/auth/register/'
-    | '/users/edit/'
+  to: '/' | '/posts' | '/auth/login' | '/auth/register'
+  id: '__root__' | '/' | '/posts/' | '/auth/login/' | '/auth/register/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  UsersUserIdRoute: typeof UsersUserIdRoute
-  MessagesIndexRoute: typeof MessagesIndexRoute
   PostsIndexRoute: typeof PostsIndexRoute
   AuthLoginIndexRoute: typeof AuthLoginIndexRoute
   AuthRegisterIndexRoute: typeof AuthRegisterIndexRoute
-  UsersEditIndexRoute: typeof UsersEditIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -135,27 +83,6 @@ declare module '@tanstack/react-router' {
       path: '/posts'
       fullPath: '/posts'
       preLoaderRoute: typeof PostsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/messages/': {
-      id: '/messages/'
-      path: '/messages'
-      fullPath: '/messages'
-      preLoaderRoute: typeof MessagesIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/users/$userId': {
-      id: '/users/$userId'
-      path: '/users/$userId'
-      fullPath: '/users/$userId'
-      preLoaderRoute: typeof UsersUserIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/users/edit/': {
-      id: '/users/edit/'
-      path: '/users/edit'
-      fullPath: '/users/edit'
-      preLoaderRoute: typeof UsersEditIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/register/': {
@@ -177,12 +104,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  UsersUserIdRoute: UsersUserIdRoute,
-  MessagesIndexRoute: MessagesIndexRoute,
   PostsIndexRoute: PostsIndexRoute,
   AuthLoginIndexRoute: AuthLoginIndexRoute,
   AuthRegisterIndexRoute: AuthRegisterIndexRoute,
-  UsersEditIndexRoute: UsersEditIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
