@@ -3,7 +3,6 @@ import globals from 'globals';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
-import emotion from '@emotion/eslint-plugin';
 
 export default tseslint.config(
     {
@@ -30,12 +29,10 @@ export default tseslint.config(
       plugins: {
         'react-hooks': reactHooks,
         'react-refresh': reactRefresh,
-        '@emotion': emotion,
       },
       rules: {
         ...reactHooks.configs.recommended.rules,
         ...reactRefresh.configs.vite.rules,
-        ...emotion.configs.recommended.rules,
         '@emotion/pkg-renaming': 'error',
         '@emotion/syntax-preference': ['error', 'object'],
         '@emotion/no-vanilla': 'error',

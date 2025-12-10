@@ -1,6 +1,6 @@
 import {observer} from "mobx-react-lite";
 import {useEffect, useState} from "react";
-import {Post} from "../types";
+import {Post} from "../types/post";
 import {PostModal} from "../../../shared/ui/PostModal/PostModal";
 import UserStore from "../../../stores/user.store";
 import * as S from "../styles/ownPost";

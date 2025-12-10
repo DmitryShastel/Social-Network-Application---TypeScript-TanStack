@@ -15,6 +15,7 @@ export default defineConfig({
             },
         }),
     ],
+    base: '/Social-Network-TanStack/',
     test: {
         environment: 'jsdom',
         globals: true,
