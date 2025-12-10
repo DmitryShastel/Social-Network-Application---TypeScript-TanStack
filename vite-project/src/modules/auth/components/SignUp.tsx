@@ -3,6 +3,7 @@ import * as S from "../styles/signUp";
 import {SignUpFormData, signUpSchema} from "../services/signUpSchema";
 import {useForm} from "react-hook-form";
 
+
 export const SignUp = () => {
     const {
         register,
@@ -17,7 +18,6 @@ export const SignUp = () => {
             confirmPassword: ''
         },
     });
-
 
     const onSubmit = async (data: SignUpFormData) => {
         try {

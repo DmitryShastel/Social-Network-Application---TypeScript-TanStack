@@ -7,17 +7,17 @@ import {SignInFormData, signInSchema} from "../services/signInSchema";
 import * as S from "../styles/signIn";
 
 export const SignIn = observer(() => {
-    //@ts-ignore
+
     const {
         register,
         handleSubmit,
         formState: {errors, isSubmitting},
         setError,
-    } = useForm<SignInFormData>({
+    } = useForm({
         resolver: zodResolver(signInSchema),
         defaultValues: {
-            username: 'emilys',
-            password: 'emilyspass',
+            username: '',
+            password: '',
         },
     });
 
@@ -26,6 +26,24 @@ export const SignIn = observer(() => {
     const onSubmit = async (data: SignInFormData) => {
         try {
             const success = await SignInStore.signIn(data.username, data.password)
+            if (success) {
+                await router.navigate({to: '/'});
+            } else {
+                setError('root', {
+                    message: 'Invalid username or password'
+                });
+            }
+        } catch (error) {
+            setError('root', {
+                message: 'An error occurred during sign in'
+            });
+        }
+    };
+
+    const handleTestLogin = async () => {
+
+        try {
+            const success = await SignInStore.signIn('emilys', 'emilyspass')
             if (success) {
                 await router.navigate({to: '/'});
             } else {
@@ -83,6 +101,13 @@ export const SignIn = observer(() => {
                         disabled={isSubmitting}
                     >
                         {isSubmitting ? 'Signing In...' : 'Sign In'}
+                    </S.Button>
+
+                    <S.Button
+                        type="button"
+                        onClick={handleTestLogin}
+                    >
+                        Test Login
                     </S.Button>
 
                     <S.LinksContainer>

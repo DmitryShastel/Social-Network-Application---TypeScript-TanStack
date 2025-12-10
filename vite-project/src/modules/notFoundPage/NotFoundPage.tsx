@@ -1,5 +1,5 @@
 import {useRouter} from "@tanstack/react-router";
-import * as S from "../notFoundPage/notFoundPage";
+import * as S from "./styles/notFoundPage";
 
 export const NotFoundPage = () => {
     const router = useRouter();

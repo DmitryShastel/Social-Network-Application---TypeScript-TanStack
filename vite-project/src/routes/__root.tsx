@@ -5,9 +5,6 @@ import {NotFoundPage} from "../modules/notFoundPage/NotFoundPage";
 export const Route = createRootRoute({
     component: () => (
         <>
-            {/*<div>*/}
-            {/*    <Link to='/'>Home Page</Link>*/}
-            {/*</div>*/}
             <GlobalStyles/>
             <Outlet/>
         </>
