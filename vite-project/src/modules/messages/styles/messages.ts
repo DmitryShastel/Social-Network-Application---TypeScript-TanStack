@@ -5,6 +5,7 @@ export const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
+  margin: 0 auto;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 `;
@@ -12,10 +13,10 @@ export const PageContainer = styled.div`
 export const ChatHeader = styled.header`
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  padding: 16px 24px;
+  padding: 12px 16px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 `;
@@ -42,14 +43,15 @@ export const Avatar = styled.div<AvatarProps>`
 export const MessagesContainer = styled.div`
   flex: 1;
   overflow-y: auto;
-  padding: 20px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  max-width: 70vh;
+  gap: 8px;
   scroll-behavior: smooth;
 
   &::-webkit-scrollbar {
-    width: 6px;
+    width: 4px;
   }
 
   &::-webkit-scrollbar-track {
@@ -67,14 +69,18 @@ export const messageStyles = {
       align-self: flex-end;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
-      border-radius: 18px 18px 4px 18px;
+      border-radius: 18px 18px 18px 18px;
+      margin-left: auto; 
+      max-width: 50%;
     `,
     other: css`
       align-self: flex-start;
       background: white;
       color: #333;
-      border-radius: 18px 18px 18px 4px;
+      border-radius: 18px 18px 18px 18px;
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      margin-right: auto; 
+      max-width: 50%;
     `
 };
 
@@ -110,6 +116,7 @@ export const MessageTime = styled.div<MessageBubbleProps>`
 
 export const InputForm = styled.form`
   display: flex;
+  max-width: 70vh;
   gap: 12px;
   padding: 16px 24px;
   background: rgba(255, 255, 255, 0.95);

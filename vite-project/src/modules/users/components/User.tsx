@@ -25,13 +25,21 @@ export const User = observer(() => {
     };
 
     const handleShowUsers = () => {
-        return router.navigate({to: '/users/'});
+        return router.navigate({
+            to: '/users/',
+            state: { fromUserId: user?.id }
+        });
     };
+
+    const handelBack = () => {
+        return router.navigate({to: '/'});
+    }
 
     const isOwnProfile = currentUser?.id && user?.id && currentUser.id === user.id;
 
     return (
         <S.UserContainer>
+            <Button title={'Back'} onClick={handelBack}/>
             <S.UserCard>
                 <S.UserHeader>
                     <S.UserImage

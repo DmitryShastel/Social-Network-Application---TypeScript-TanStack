@@ -1,10 +1,12 @@
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {observer} from "mobx-react-lite";
 import {useRouter} from "@tanstack/react-router";
 import {User} from "../types/user";
 import {Button} from "../../../shared/ui/Button/Button";
 import UserStore from "../../../stores/user.store";
 import * as S from "../styles/UserWithPosts";
+import {Post} from "../../posts/types/post";
+import {PostModal} from "../../../shared/ui/PostModal/PostModal";
 
 interface UserWithPostsProps {
     user: User;
@@ -13,6 +15,8 @@ interface UserWithPostsProps {
 }
 
 export const UserWithPosts = observer(({user, isLoading, postsError}: UserWithPostsProps) => {
+    const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const router = useRouter();
     const posts = UserStore.getPostByUserId(user.id);
 
@@ -39,7 +43,18 @@ export const UserWithPosts = observer(({user, isLoading, postsError}: UserWithPo
         router.navigate({to: '/message/$userId/', params: {userId: user.id}});
     };
 
+    const handlePostClick = (post: Post) => {
+        setSelectedPost(post);
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setTimeout(() => setSelectedPost(null), 300);
+    };
+
     return (
+        <>
         <S.UserCard>
             <S.UserHeader>
                 <S.UserAvatar
@@ -73,7 +88,7 @@ export const UserWithPosts = observer(({user, isLoading, postsError}: UserWithPo
                 ) : posts?.length > 0 ? (
                     <S.PostsGrid>
                         {posts?.map((post) => (
-                            <S.PostCard key={post.id}>
+                            <S.PostCard key={post.id} onClick={() => handlePostClick(post)}>
                                 <S.PostTitle>{post.title}</S.PostTitle>
 
                                 <S.PostBody>{post.body}</S.PostBody>
@@ -106,5 +121,11 @@ export const UserWithPosts = observer(({user, isLoading, postsError}: UserWithPo
                 )}
             </S.PostsSection>
         </S.UserCard>
+            <PostModal
+                post={selectedPost}
+                isOpen={isModalOpen}
+                onClose={handleCloseModal}
+            />
+        </>
     );
 });

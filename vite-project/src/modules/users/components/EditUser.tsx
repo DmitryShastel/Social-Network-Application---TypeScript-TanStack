@@ -1,5 +1,5 @@
 import {observer} from "mobx-react-lite";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useParams, useRouter} from "@tanstack/react-router";
 import {Button} from '../../../shared/ui/Button/Button';
 import UserStore from "../../../stores/user.store";
@@ -103,6 +103,10 @@ export const EditUser = observer(() => {
         router.navigate({to: '/users/$userId', params: {userId}});
     };
 
+    const handelBack = () => {
+        router.navigate({to: '/users/$userId', params: {userId}});
+    }
+
     if (!user) {
         return (
             <S.EditContainer>
@@ -117,6 +121,7 @@ export const EditUser = observer(() => {
 
     return (
         <S.EditContainer>
+            <Button title={'Back'} onClick={handelBack}/>
             <S.EditCard>
                 <S.Title>Edit Profile</S.Title>
 

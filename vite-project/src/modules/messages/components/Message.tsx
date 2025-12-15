@@ -1,10 +1,11 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {observer} from "mobx-react-lite";
-import {useParams} from "@tanstack/react-router";
+import {useParams, useRouter} from "@tanstack/react-router";
 import {MessageData} from "../types/message";
 import {useWebSocket} from "../../../ws/useWebsocket";
 import UserStore from "../../../stores/user.store";
 import * as S from "../styles/messages";
+import {Button} from "../../../shared/ui/Button/Button";
 
 
 export const Message = observer(() => {
@@ -13,6 +14,7 @@ export const Message = observer(() => {
         {id: 1, text: 'Hi! What is up?', sender: 'other', timestamp: '10:00'},
         {id: 2, text: 'hi there! everything fine!', sender: 'user', timestamp: '10:01'},
     ]);
+    const router = useRouter();
 
     const {user} = UserStore
     const {userId} = useParams({from: '/message/$userId/'})
@@ -68,6 +70,9 @@ export const Message = observer(() => {
             handleSendMessage()
         }
     }
+    const handelBack = () => {
+        return router.navigate({to: '/users/'})
+    };
 
     if (!user) {
         return (
@@ -82,6 +87,7 @@ export const Message = observer(() => {
     return (
         <S.PageContainer>
             <S.ChatHeader>
+                <Button title={'Back'} onClick={handelBack}/>
                 <S.Avatar src={user?.image}>
                     {!user?.image && user?.firstName.charAt(0)}
                 </S.Avatar>

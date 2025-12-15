@@ -3,9 +3,14 @@ import {observer} from "mobx-react-lite";
 import {UserWithPosts} from "./UserWithPosts";
 import UserStore from "../../../stores/user.store";
 import * as S from "../styles/ListOfUsers";
+import {Button} from "../../../shared/ui/Button/Button";
+import {useLocation, useRouter} from "@tanstack/react-router";
 
 export const ListOfUsers = observer(() => {
     const {allUsers, isLoading} = UserStore;
+    const router = useRouter();
+    const location = useLocation();
+    const fromUserId = location.state?.fromUserId as number | undefined;
 
     useEffect(() => {
         if (!allUsers || allUsers.users.length === 0) {
@@ -24,6 +29,18 @@ export const ListOfUsers = observer(() => {
         }
     };
 
+    const handelBack = () => {
+        if (fromUserId) {
+            router.navigate({
+                to: '/users/$userId',
+                params: {userId: fromUserId.toString()},
+                state: undefined
+            });
+        } else {
+            router.navigate({to: '/'});
+        }
+    };
+
     if (isLoading && !users.length) {
         return (
             <S.LoadingContainer>
@@ -35,6 +52,7 @@ export const ListOfUsers = observer(() => {
 
     return (
         <>
+            <Button title={'Back'} onClick={handelBack}/>
             <S.UsersCount>
                 <p>Showing {loadedCount} of {totalUsers} users</p>
             </S.UsersCount>

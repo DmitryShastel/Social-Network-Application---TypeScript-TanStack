@@ -23,6 +23,12 @@ export function GlobalStyles() {
               ul, ol {
                 list-style: none;
               }
+              
+               ::-webkit-scrollbar {
+                width: 0px;
+                height: 0px;
+                background: transparent;
+              }
             `}
         />
     )

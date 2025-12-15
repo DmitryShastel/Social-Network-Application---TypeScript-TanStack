@@ -57,9 +57,9 @@ export function PostModal({
 
     if (!isOpen || !post) return null;
 
-    const totalReactions = post.reactions.likes + post.reactions.dislikes;
+    const totalReactions = post?.reactions?.likes + post?.reactions?.dislikes;
     const likesPercentage = totalReactions > 0
-        ? Math.round((post.reactions.likes / totalReactions) * 100)
+        ? Math.round((post?.reactions?.likes / totalReactions) * 100)
         : 0;
 
     return (
